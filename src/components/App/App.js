@@ -1,4 +1,9 @@
 import React from 'react';
+import Header from '../Header/Header';
+import Search from '../Search/Search';
+import Main from '../Main/Main';
+import About from '../About/About';
+import Footer from '../Footer/Footer';
 
 import './App.css';
 
