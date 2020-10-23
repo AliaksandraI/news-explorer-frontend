@@ -3,8 +3,8 @@
     padding: 30px 104px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #cc1919;
     background-color: #E5E5E5;
+    border: 1px solid #cc1919;
 }
 
 .footer__name {

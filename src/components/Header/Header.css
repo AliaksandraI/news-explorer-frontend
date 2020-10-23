@@ -5,7 +5,10 @@
     padding: 30px 104px 26px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #cc1919;
+    border: 1px solid #cc1919;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 
