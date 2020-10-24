@@ -1,0 +1,39 @@
+.about{
+    max-width: 1440px;
+    min-height: 624px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: row;
+}
+
+.about__photo{
+    width: 464px;
+    height: 464px;
+    margin: 80px 56px 80px 104px;
+}
+
+.about__wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 131px;
+}
+
+.about__title{
+    font-family: 'Roboto Slab', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    line-height: 46px;
+    color: #1A1B22;
+    margin-bottom: 24px;
+}
+
+.about__description{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    color: #1A1B22;
+    max-width: 600px;
+}

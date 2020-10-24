@@ -1,9 +1,6 @@
 import React from 'react';
 import Header from '../Header/Header.js';
-import Search from '../Search/Search.js';
-/*import Main from '../Main/Main.js';
-import About from '../About/About.js';
-*/
+import Main from '../Main/Main.js';
 import Footer from '../Footer/Footer.js';
 
 import './App.css';
@@ -24,7 +21,7 @@ class App extends React.Component{
 
         <Header />
 
-        <Search />
+        <Main />
 
         <Footer />
 
