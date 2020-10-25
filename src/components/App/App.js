@@ -1,7 +1,8 @@
 import React from 'react';
-import Header from '../Header/Header.js';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Main from '../Main/Main.js';
-import Footer from '../Footer/Footer.js';
+import SavedNews from '../SavedNews/SavedNews.js';
+
 
 import './App.css';
 
@@ -16,16 +17,14 @@ class App extends React.Component{
 */
   render(){
     return(
-    
-      <div className="page">
-
-        <Header />
-
-        <Main />
-
-        <Footer />
-
-      </div>
+      <BrowserRouter>
+        <div className="page">
+          <Switch>
+              <Route path="/" component={Main} exact/>
+              <Route path="/saved-news" component={SavedNews}/>
+          </Switch>
+        </div>
+      </BrowserRouter>
     )
   }
 

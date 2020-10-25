@@ -6,11 +6,12 @@
     display: flex;
     justify-content: space-between;
     border: 1px solid #cc1919;
-    position: fixed;
-    top: 0;
-    width: 100%;
+   
 }
-
+/*position: fixed;
+top: 0;
+width: 100%;
+*/
 
 .header_hidden {
     display: none;
@@ -43,6 +44,10 @@
     margin-left: 34px;
     align-self: center;
     color: #FFFFFF;
+}
+
+.header__text :last-of-type{
+    margin-left: 19px;
 }
 
 
