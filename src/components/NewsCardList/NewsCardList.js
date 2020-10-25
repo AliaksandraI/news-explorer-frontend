@@ -1,15 +1,21 @@
 import React from 'react';
 import NewsCard from '../NewsCard/NewsCard.js';
-//import photo from '../../images/avatar_author.jpg';
 
 import './NewsCardList.css';
 
 function NewsCardList () {
     return (
-        <section>
+        <section className="cards">
             <h2 className="cards__title">Результаты поиска</h2>
-            <NewsCard />
-            <div className="cards__button">Показать еще</div>
+                <div className="cards__wrapper">
+                    <NewsCard />
+                    <NewsCard />
+                    <NewsCard />
+                    <NewsCard />
+                </div>
+            <div className="cards__button-wrapper">
+                <button className="cards__button">Показать еще</button>
+            </div>
         </section>
     );
 }
