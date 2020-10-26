@@ -4,6 +4,7 @@ import Search from '../Search/Search.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js'; 
 import About from '../About/About.js';
 import Preloader from '../Preloader/Preloader.js';
+import LoginForm from '../LoginForm/LoginForm.js';
 import Footer from '../Footer/Footer.js';
 
 import '../NewsCardList/NewsCardList.css';
@@ -22,6 +23,8 @@ function Main () {
             </section>
             <Preloader />
             <About />
+            <LoginForm >
+            </LoginForm >
             <Footer />
       </div>
     );

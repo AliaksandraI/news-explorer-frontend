@@ -6,7 +6,7 @@
     font-size: 40px;
     line-height: 46px;
     color: #1A1B22;
-    margin: 80px auto 64px 0;
+    margin: 80px auto 64px 104px;
 }
 
 .cards__wrapper{
@@ -42,3 +42,4 @@
     color: #1A1B22;
     border: none;
 }
+

@@ -1,0 +1,113 @@
+.popup {
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    display: flex;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s, visibility 0s linear 0.3s;
+} 
+
+.popup_opened {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.7s;
+}
+
+
+.popup__container {
+    width: 430px;
+    background: white;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: auto 0;
+    position: relative;
+}
+
+.popup__title {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    margin:34px 0 20px;
+}
+
+.popup__button {
+    width: 358px;
+    height: 64px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    color: #B6BCBF;
+    margin: 48px 0 36px;
+    padding: 0;
+    background: #E6E8EB;
+    border-radius: 100px;
+}
+
+.popup__button:hover {
+    background: rgba(0,0,0,0.8);
+    transition: opacity 0.3s;
+}
+
+.popup__close-button {
+    padding: 0;
+    margin: 0;
+    transform: rotate(90deg);
+    position: absolute;
+    top: -46px;
+    right: -46px;
+    cursor:pointer;
+    background: none;
+    border: none;
+}
+
+.popup__close-button:hover {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.form__input_type_error {
+    border-bottom-color: red;
+} 
+
+
+.form__input-error {
+    font-family: 'Inter','Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+    opacity: 0;
+    transition: 0.3s;
+    align-self: start;
+    padding-top: 5px;
+    padding-left: 36px;
+}
+
+.form__input-error_active {
+    opacity: 1;
+  }
+
+.form__submit_inactive {
+    color: #B8B8B8;
+    background: #E5E5E5;
+    pointer-events: none;
+}
+

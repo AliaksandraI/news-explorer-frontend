@@ -17,6 +17,10 @@ width: 100%;
     display: none;
 }
 
+.header_active{
+    
+}
+
 .header__name {
     font-family: 'Roboto Slab','Roboto', sans-serif;
     font-style: normal;
@@ -45,13 +49,12 @@ width: 100%;
     line-height: 24px;
     align-self: center;
     color: #FFFFFF;
-    margin-right: 32px;
+    margin-right: 30px;
 }
-
-
 
 .header__text_dark {
     color: #1A1B22;
+    margin-left: 15px;
 }
 
 .header__button {

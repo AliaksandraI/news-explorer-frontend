@@ -7,7 +7,7 @@ import Footer from '../Footer/Footer.js';
 function SavedNews () {
     return (
         <div >
-            <Header />
+            <Header savedNews={true}/>
 
             <SavedNewsHeader />
 
