@@ -4,31 +4,69 @@ import Search from '../Search/Search.js';
 import NewsCardList from '../NewsCardList/NewsCardList.js'; 
 import About from '../About/About.js';
 import Preloader from '../Preloader/Preloader.js';
+import RegistrationForm from '../RegistrationForm/RegistrationForm.js';
 import LoginForm from '../LoginForm/LoginForm.js';
+import SuccesfulRegistrationForm from '../SuccesfulRegistrationForm/SuccesfulRegistrationForm.js';
 import Footer from '../Footer/Footer.js';
 
+import './Main.css';
 import '../NewsCardList/NewsCardList.css';
 
-function Main () {
-    return (
-        <div >
-            <Header />
-            <Search />
-            <section>
-                <h2 className="cards__title">Результаты поиска</h2>
-                <NewsCardList />
-                <div className="cards__button-wrapper">
-                <button className="cards__button">Показать еще</button>
-            </div>
-            </section>
-            <Preloader />
-            <About />
-            <LoginForm >
-            </LoginForm >
-            <Footer />
-      </div>
-    );
+
+class Main extends React.Component{
+
+    constructor(){
+        super();
+        this.state = {
+            isLoginFormOpen: false,
+            isRegistrationFormOpen: false,
+            isSuccesfulRegistrationFormOpen: false,
+        }
+    }
+
+    render () {
+        return (
+            <div >
+                <div className="main__header-image">
+                    <Header isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick}/>
+                    <Search />
+                </div>
+                <section>
+                    <h2 className="cards__title">Результаты поиска</h2>
+                    <NewsCardList />
+                    <div className="cards__button-wrapper">
+                        <button className="cards__button">Показать еще</button>
+                    </div>
+                </section>
+                <Preloader />
+                <About />
+                <LoginForm isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups}>
+                </LoginForm >
+                <RegistrationForm isOpen={this.state.isRegistrationFormOpen} onClose={this.closeAllPopups}>
+                </RegistrationForm>
+                <SuccesfulRegistrationForm isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups}>
+                </SuccesfulRegistrationForm>
+                <Footer />
+        </div>
+        );
+    }
+
+    handleLoginClick = () => {
+        this.setState({ isLoginFormOpen: true });
+    }
+
+    closeAllPopups = () => {
+        this.setState({
+            isLoginFormOpen: false,
+            isRegistrationFormOpen: false,
+            isSuccesfulRegistrationFormOpen: false,
+        });
+    }
+
+
 }
 
 
 export default Main;
+
+

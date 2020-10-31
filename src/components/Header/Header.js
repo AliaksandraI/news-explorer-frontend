@@ -7,16 +7,19 @@ import './Header.css';
 function Header (props) {
     return (
         <header className="header">
-            <p className="header__name header__text_dark">NewsExplorer</p>
+            <p className={`header__name ${props.isHeaderForMain ? "header__text" : "header__text_dark"}`}>NewsExplorer</p>
             <div className="header__menu">
-                <Link to="/" exact className="header__text header__text_dark" >
+                <Link to="/" exact className={props.isHeaderForMain ? "header__text" : "header__text_dark"}>
                     Главная
                  </Link>
-                 <Link to="/saved-news" exact className="header__text header__text_dark" >
+                 <Link to="/saved-news" exact className={props.isHeaderForMain ? "header_hidden" : "header__text_dark"} >
                     Сохраненные статьи
                  </Link>
-                <button className="header__button_dark" >
-                    <a className="header__text header__text_dark " href="https://www.segerios.com/wp-content/uploads/2016/09/Brilliant-Brown-And-White-Beagle-Dog-Looking-At-You.jpg">Грета </a> 
+                 <button className={props.isHeaderForMain ? "header__button" : "header_hidden"} onClick={props.onAuthButtonClick}>
+                    <p className="header__button-text">Авторизоваться</p> 
+                </button>
+                <button className={props.isHeaderForMain ? "header_hidden" : "header__button_dark"}>
+                    <a className="header__text header__text_dark " href="https://www.segerios">Грета </a> 
                     <img src={logoutPath} className="header__logo" alt="кнопка вылогиниться"/>
                 </button>
             </div>

@@ -2,13 +2,9 @@
 .search {
     max-width: 1440px;
     min-height: 496px;
-    background-image: url(../../images/background.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
     display: flex;
     flex-direction: column;
     padding: 0px 416px;
-    border: 1px solid #cc1919;
 }
 
 .search__title {

@@ -12,12 +12,11 @@ class PopupWithForm extends React.Component {
 
         return (
 
-            <section className="popup popup_opened ">
+            <section className={`popup ${this.props.isOpen ? "popup_opened" : ""}`}>
                     <form className="popup__container form">
                         <h2 className="popup__title">{this.props.title}</h2>
                         {this.props.children}
-                        <button type="submit" className="popup__button form__submit">{this.props.buttonName}</button>
-                        <button aria-label="close" type="button" className="popup__close-button">
+                        <button aria-label="close" type="button" className="popup__close-button" onClick={this.props.onClose}>
                             <img src={closeButtonPath} alt="Кнопка закрыть" className="popup__close-button-image"></img>
                         </button>
                     </form>
