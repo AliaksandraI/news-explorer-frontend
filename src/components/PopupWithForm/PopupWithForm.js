@@ -7,15 +7,20 @@ class PopupWithForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.handleEscapeOutside = this.handleEscapeOutside.bind(this)
+
+        this.handleEscapeOutside = this.handleEscapeOutside.bind(this);
     }
   
+    handleEscapeOutside = () =>{
+        this.props.onClose();
+    }
+
     render () {
 
         return (
-            <EscapeOutside onEscapeOutside={ this.handleEscapeOutside }>
+           // <EscapeOutside onEscapeOutside={ this.handleEscapeOutside }>
             <section className={`popup ${this.props.isOpen ? "popup_opened" : ""}`}>
-                    <form className="popup__container form" onSubmit={this.props.onSubmit} noValidate>
+                    <form className="popup__container form" onSubmit={this.props.onSubmit}>
                         <h2 className="popup__title">{this.props.title}</h2>
                         {this.props.children}
                         <button aria-label="close" type="button" className="popup__close-button" onClick={this.props.onClose}>
@@ -23,13 +28,10 @@ class PopupWithForm extends React.Component {
                         </button>
                     </form>
             </section>
-            </EscapeOutside>
+           // </EscapeOutside>
         );
     }
 
-    handleEscapeOutside() {
-        this.props.onClose();
-      }
 }    
 
 

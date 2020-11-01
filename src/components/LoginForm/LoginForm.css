@@ -42,8 +42,48 @@
     border-radius: 100px;
 }
 
-.popup__button:hover {
-    background: rgba(0,0,0,0.8);
+.popup__button_active{
+    width: 358px;
+    height: 64px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 39px 0 16px;
+    padding: 0;
+    border-radius: 100px;
+    background: #2F71E5;
+    color: #FFFFFF;
+}
+.popup__button_active:hover {
+    background:
+.popup__button_active{
+    width: 358px;
+    height: 64px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    margin: 39px 0 16px;
+    padding: 0;
+    border-radius: 100px;
+    background: #2F71E5;
+    color: #FFFFFF;
+}
+.popup__button_active:hover {
+    background: #347EFF;
+    transition: opacity 0.3s;
+}
     transition: opacity 0.3s;
 }
 
@@ -65,4 +105,13 @@
 
 .form__link-text:hover {
     cursor: pointer;
+}
+
+.form__error{
+    font-family: 'Inter','Arial', 'Helvetica', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
 }

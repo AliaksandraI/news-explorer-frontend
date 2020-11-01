@@ -1,4 +1,5 @@
 import React from 'react';
+import SearchForm from '../SearchForm/SearchForm.js';
 
 import './Search.css';
 
@@ -7,10 +8,7 @@ function Search () {
         <section className="search">
             <h1 className="search__title">Что творится в мире?</h1>
             <h2 className="search__subtitle">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</h2>
-                <div className="search__wrapper">
-                    Введите тему новости
-                    <p className="search__button">Искать</p>
-                </div>
+            <SearchForm />
         </section>
     );
 }
