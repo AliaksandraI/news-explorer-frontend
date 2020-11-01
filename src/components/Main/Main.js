@@ -40,11 +40,11 @@ class Main extends React.Component{
                 </section>
                 <Preloader />
                 <About />
-                <LoginForm isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups}>
+                <LoginForm isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
                 </LoginForm >
-                <RegistrationForm isOpen={this.state.isRegistrationFormOpen} onClose={this.closeAllPopups}>
+                <RegistrationForm isOpen={this.state.isRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick} onSuccesfulRegistration={this.handleSuccesfulRegistration}>
                 </RegistrationForm>
-                <SuccesfulRegistrationForm isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups}>
+                <SuccesfulRegistrationForm isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick}>
                 </SuccesfulRegistrationForm>
                 <Footer />
         </div>
@@ -53,6 +53,14 @@ class Main extends React.Component{
 
     handleLoginClick = () => {
         this.setState({ isLoginFormOpen: true });
+    }
+
+    handleRegistrationClick = () => {
+        this.setState({ isRegistrationFormOpen: true });
+    }
+
+    handleSuccesfulRegistration = () => {
+        this.setState({ isSuccesfulRegistrationFormOpen: true });
     }
 
     closeAllPopups = () => {

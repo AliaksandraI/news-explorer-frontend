@@ -7,7 +7,9 @@ import './Header.css';
 function Header (props) {
     return (
         <header className="header">
-            <p className={`header__name ${props.isHeaderForMain ? "header__text" : "header__text_dark"}`}>NewsExplorer</p>
+            <Link to="/" exact className={`header__name ${props.isHeaderForMain ? "header__text" : "header__text_dark"}`}>
+                NewsExplorer
+            </Link>
             <div className="header__menu">
                 <Link to="/" exact className={props.isHeaderForMain ? "header__text" : "header__text_dark"}>
                     Главная

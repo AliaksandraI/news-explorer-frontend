@@ -7,11 +7,15 @@ import '../SuccesfulRegistrationForm/SuccesfulRegistrationForm.css';
 function SuccesfulRegistrationForm(props) {
    
     return (
-        <PopupWithForm name="login_form" title="Пользователь успешно зарегистрирован!">
-                <p className="form__link-text">Войти</p>                   
+        <PopupWithForm name="login_form" title="Пользователь успешно зарегистрирован!" isOpen={props.isOpen} onClose={props.onClose}>
+                <p className="form__link-text" onClick={onLoginButtonClick}>Войти</p>                   
         </PopupWithForm>
     )
 
+    function onLoginButtonClick() {
+        props.onClose();
+        props.onLoginButtonClick();
+    }
 }
 
 export default SuccesfulRegistrationForm;

@@ -67,6 +67,10 @@
     background: rgba(0, 0, 0, 0)
 }
 
+.header__button:hover{
+    cursor: pointer;
+}
+
 .header__button_dark {
     border: 1px solid #1A1B22;
     box-sizing: border-box;
