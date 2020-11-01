@@ -1,11 +1,11 @@
 import React from 'react';
 import cardImage from '../../images/image_05.jpg';
-//import saveArticle from '../../images/tosave_button.svg';
+import saveArticle from '../../images/tosave_button.svg';
 import deleteArticle from '../../images/delete_button.svg';
 import './NewsCard.css';
 
 
-function NewsCard () {
+function NewsCard (props) {
     return (
         <div className="card">
             <img src={cardImage} className="card__image" alt="картинка статьи"></img>
@@ -15,9 +15,9 @@ function NewsCard () {
                 <p className="card__description">В 2016 году Америка отмечала важный юбилей: сто лет назад здесь начала складываться система национальных парков – охраняемых территорий, где и сегодня каждый может приобщиться к природе.</p>
                 <p className="card__source">Лента.ру</p>
             </div>
-            <p className="card__keyword">Природа</p>
+            <p className={props.isSavedNews ? "card__keyword" : "card__keyword_hidden"}>Природа</p>
             <button type="button" className="card__save-button" >
-                <img src={deleteArticle} alt="Знак сохранения статьи"></img>
+                <img src={props.isSavedNews ? deleteArticle : saveArticle} alt="Знак сохранения статьи"></img>
             </button>
         </div>
     );

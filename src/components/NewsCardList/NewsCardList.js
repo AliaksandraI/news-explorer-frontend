@@ -3,14 +3,14 @@ import NewsCard from '../NewsCard/NewsCard.js';
 
 import './NewsCardList.css';
 
-function NewsCardList () {
+function NewsCardList (props) {
     return (
         <section className="cards">
     
                 <div className="cards__wrapper">
-                    <NewsCard />
-                    <NewsCard />
-                    <NewsCard />
+                    <NewsCard isSavedNews={props.isSavedNews}/>
+                    <NewsCard isSavedNews={props.isSavedNews}/>
+                    <NewsCard isSavedNews={props.isSavedNews}/>
                 </div>
            
         </section>

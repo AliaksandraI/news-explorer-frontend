@@ -33,7 +33,7 @@ class Main extends React.Component{
                 </div>
                 <section>
                     <h2 className="cards__title">Результаты поиска</h2>
-                    <NewsCardList />
+                    <NewsCardList  isSavedNews={false}/>
                     <div className="cards__button-wrapper">
                         <button className="cards__button">Показать еще</button>
                     </div>
