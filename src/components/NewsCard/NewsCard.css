@@ -80,6 +80,10 @@
     justify-content: space-around;
 }
 
+.card__save-button:hover{
+    cursor: pointer;
+}
+
 .card__keyword{
     font-family: 'Roboto', sans-serif;
     font-style: normal;

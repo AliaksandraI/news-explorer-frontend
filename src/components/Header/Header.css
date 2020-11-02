@@ -126,13 +126,36 @@
 }
 
 
-/*
-@media screen and (min-width: 1281px) {
-    .header {
-        margin: 0 auto;
+
+@media screen and (max-width: 1023px) {
+    .header__text {
+        font-size: 16px;
+        margin-right: 16px;
+    }
+
+    .header__text_dark {
+        font-size: 16px;
+        margin-right: 16px;
+    }
+
+    .header__button-text{
+        font-size: 16px;
+        margin-right: 16px;
+    }
+
+    .header__name {
+    margin-left: 40px;
+    }
+
+    .header__name_dark {
+    margin-left: 40px;
+    }
+
+    .header__menu {
+        margin-right: 40px;
     }
 }
-
+/*
 @media screen and (max-width: 800px)  {
     .header {
         margin: 0;

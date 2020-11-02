@@ -31,7 +31,7 @@ class Main extends React.Component{
                     <Header isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick}/>
                     <Search />
                 </div>
-                <section>
+                <section className="cards">
                     <h2 className="cards__title">Результаты поиска</h2>
                     <NewsCardList  isSavedNews={false}/>
                     <div className="cards__button-wrapper">
