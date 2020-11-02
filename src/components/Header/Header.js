@@ -21,7 +21,7 @@ function Header (props) {
                     <p className="header__button-text">Авторизоваться</p> 
                 </button>
                 <button className={props.isHeaderForMain ? "header_hidden" : "header__button_dark"}>
-                    <Link to="/" exact className="header__text header__text_dark">
+                    <Link to="/" exact className="header__button-text header__button-text_dark">
                         Грета 
                      </Link>
                     <img src={logoutPath} className="header__logo" alt="кнопка вылогиниться"/>
