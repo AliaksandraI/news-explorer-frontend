@@ -50,7 +50,6 @@
     font-size: 16px;
     line-height: 22px;
     color: #1A1B22;
-    margin: 0;
     margin: 0 0 18px 0;
 }
 
@@ -104,3 +103,16 @@
 .card__keyword_hidden{
     display: none;
 }
+
+@media screen and (max-width: 1244px) { 
+
+.card__subtitle{
+    font-size: 22px;
+    line-height: 24px;
+    margin: 0 0 10px 0;
+}
+
+.card__description{
+    margin: 0 0 12px 0;
+}
+}    

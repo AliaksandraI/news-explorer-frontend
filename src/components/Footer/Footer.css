@@ -43,3 +43,9 @@
     flex-direction: column;
     justify-content: center;
 }
+
+@media screen and (max-width: 1244px) { 
+    .footer {
+        padding: 24px 40px;
+    }
+}

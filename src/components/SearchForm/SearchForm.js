@@ -7,7 +7,7 @@ function SearchForm () {
         <div className="search__wrapper">
             <input type="search" className="search__input" placeholder="Введите тему новости">
             </input>
-            <p className="search__button">Искать</p>
+            <button className="search__button">Искать</button>
         </div>
     );
 }

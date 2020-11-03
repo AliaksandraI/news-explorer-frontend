@@ -37,3 +37,25 @@
     color: #1A1B22;
     max-width: 600px;
 }
+
+@media screen and (max-width: 1244px) { 
+ 
+    .about{
+        min-height: 354px;
+    }
+    .about__title{
+        font-size: 30px;
+        line-height: 40px;
+        margin-bottom: 16px;
+    }
+    
+    .about__photo{
+        width: 232px;
+        height: 232px;
+        margin: 61px 32px 61px 40px;
+    }
+    
+    .about__wrapper{
+        margin-top: 40px;
+    }
+}
