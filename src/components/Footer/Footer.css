@@ -44,8 +44,51 @@
     justify-content: center;
 }
 
+.footer__menu-icon-git{
+    margin-right: 0px;
+}
+
 @media screen and (max-width: 1244px) { 
     .footer {
         padding: 24px 40px;
     }
+
+    .footer__menu-wrapper{
+        display: flex;
+        flex-direction: row;
+    }
+
+}
+
+
+@media screen and (max-width: 767px) { 
+    .footer {
+        padding: 20px 16px;
+        flex-direction: column-reverse;
+    }
+    .footer__name {
+        align-self: flex-start;
+    }
+
+    .footer__menu {
+        justify-content: space-between;
+    }
+
+    .footer__menu-wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .footer__menu-item {
+        margin-bottom: 40px;
+    }
+
+    .footer__menu-icon {
+        justify-content: start;
+    }
+    .footer__menu-icon-git{
+        margin-right: 0px;
+    }
+    
 }

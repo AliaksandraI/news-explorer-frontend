@@ -116,3 +116,18 @@
     margin: 0 0 12px 0;
 }
 }    
+
+@media screen and (max-width: 768px) { 
+
+    .card__image {
+        height: 150px;
+    }
+    
+    .card__description{
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+} 
