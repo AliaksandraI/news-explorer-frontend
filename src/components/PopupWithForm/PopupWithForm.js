@@ -18,7 +18,7 @@ class PopupWithForm extends React.Component {
 
     render () {
         return (
-           <EscapeOutside onEscapeOutside={ this.handleEscapeOutside }>
+           //<EscapeOutside onEscapeOutside={ this.handleEscapeOutside }>
             <section className={`popup ${this.props.isOpen ? "popup_opened" : ""}`}>
                     <form className="popup__container form" onSubmit={this.props.onSubmit}>
                         <h2 className="popup__title">{this.props.title}</h2>
@@ -28,7 +28,7 @@ class PopupWithForm extends React.Component {
                         </button>
                     </form>
             </section>
-           </EscapeOutside>
+           //</EscapeOutside>
         );
     }
 

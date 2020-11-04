@@ -48,14 +48,14 @@
     margin-right: 0px;
 }
 
+.footer__menu-wrapper{
+    display: flex;
+    flex-direction: row;
+}
+
 @media screen and (max-width: 1244px) { 
     .footer {
         padding: 24px 40px;
-    }
-
-    .footer__menu-wrapper{
-        display: flex;
-        flex-direction: row;
     }
 
 }

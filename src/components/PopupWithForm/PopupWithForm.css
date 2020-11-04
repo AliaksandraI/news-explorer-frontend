@@ -89,3 +89,30 @@
     pointer-events: none;
 }
 
+@media screen and (max-width: 525px) { 
+    .popup__container {
+        width: 320px;
+    }
+
+    .popup__container {
+        padding-right: 36px;
+    }
+
+    .popup__close-button {
+        top: -45px;
+        right: 6px;
+    }
+}
+
+@media screen and (max-width: 410px) {
+    .popup__container {
+        height: 560px;
+        margin-top: 56px;
+        justify-content: start;
+    }
+
+    .popup__title {
+        margin:16px 0 0px;
+    }
+
+}

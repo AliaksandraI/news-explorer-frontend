@@ -3,6 +3,7 @@
     border-radius: 10px 10px 10px 10px;
     overflow: hidden;
     position: relative;
+    margin: auto;
 }
 
 .card__image {
@@ -131,3 +132,9 @@
         text-overflow: ellipsis;
     }
 } 
+
+@media screen and (max-width: 768px) { 
+    .card {
+        max-width: 288px;
+    }
+}
