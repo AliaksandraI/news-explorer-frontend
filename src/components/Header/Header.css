@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom:solid 1px #D1D2D6;
+    position: relative;
 }
 
 
@@ -41,6 +42,21 @@
     align-items: center;
     margin-right: 104px;
 }
+
+.header__menu-mobile {
+    position: absolute;
+    top: 56px;
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background: #1A1B22;
+    width: 100%;
+    border-radius: 0 0 30px 30px;
+    z-index: 3;
+}
+
+
 .header__text {
     font-family: 'Roboto', sans-serif;
     font-style: normal;
@@ -58,8 +74,7 @@
 }
 
 .header__dark_active{
-    box-shadow: inset 0px -3px 0px #1A1B22;
-    /*border-bottom: solid 3px #1A1B22;*/
+    border-bottom: solid 3px #1A1B22;
 }
 
 .header__text_dark {
@@ -125,6 +140,9 @@
     margin-right: 9px;
 }
 
+.header__menu-button{
+    display: none;
+}
 
 
 @media screen and (max-width: 1023px) {
@@ -156,17 +174,73 @@
     }
 }
 
-@media screen and (max-width: 425px) {
-    .header {
-        flex-direction: column;
+@media screen and (max-width: 560px) {
+    .header__mobile {
+        min-height: 56px;
+        background: #1A1B22;
+        box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
+    }
+
+    .header__menu-button{
+        display: block;
+        width: 24px;
+        height: 24px;
+        padding:0;
+        align-self: center;
+        margin-right:20px;
+        cursor:pointer;
+        background: none;
+        border: none;
+    }
+
+    .header__menu{
+        display:none;
+    }
+
+    .header__text {
+        font-size: 18px;
+        margin-left: 16px;
+    }
+
+    .header__name_dark {
+        color: #FFFFFF;
+    }
+    .header__text_dark {
+        font-size: 18px;
+        color: #FFFFFF;
+        height: 80px;
+        margin-left: 16px;
+    }
+
+    .header__text_active{
+        border-bottom: none;
+    }
+
+    .header__dark_active{
+        box-shadow: none;
+    }
+
+    .header__button-text{
+        font-size: 18px;
+    }
+
+    .header__button{
+        width: 288px;
+        margin: 0 16px 24px;
+        align-self: center;
+    }
+
+    .header__button_dark {
+        width: 272px;
+        height: 56px;
+        background:none;
+        border: 1px solid #FFFFFF;
+        align-content: center;
+        margin: 0 16px 24px;
+        align-self: center;
+    }
+    
+    .header__button-text_dark{
+        color: #FFFFFF;
     }
 }
-/*
-@media screen and (max-width: 800px)  {
-    .header {
-        margin: 0;
-        padding-top: 28px;
-        padding-left: 27px;
-    }
-}
-*/

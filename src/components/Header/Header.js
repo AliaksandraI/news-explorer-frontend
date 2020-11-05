@@ -1,16 +1,30 @@
 import React from 'react';
 import logoutPath from '../../images/logout_arrow.svg';
+import menuIcon from '../../images/menu_icon.svg';
+import closeMenuIcon from '../../images/menu_closeicon.svg';
 import { Link } from 'react-router-dom'; 
 
 import './Header.css';
 
 function Header (props) {
+
+    const [mobileMenu, openMobileMenu] = React.useState(false);
+
+    function handleMobileMenuClick(){
+        if (mobileMenu){
+            openMobileMenu(false)
+        } else {
+            openMobileMenu(true)
+        }
+    }
+
+
     return (
-        <header className="header">
+        <header className={ mobileMenu ? "header header__mobile" : "header"}>
             <Link to="/" exact className={props.isHeaderForMain ? "header__name" : "header__name_dark"}>
                 NewsExplorer
             </Link>
-            <div className="header__menu">
+            <div className={ mobileMenu ? "header__menu-mobile" : "header__menu"}>
                 <Link to="/" exact className={props.isHeaderForMain ? "header__text header__text_active" : "header__text_dark"}>
                     Главная
                  </Link>
@@ -27,8 +41,12 @@ function Header (props) {
                     <img src={logoutPath} className="header__logo" alt="кнопка вылогиниться"/>
                 </button>
             </div>
+            <button className="header__menu-button" type="button" onClick={handleMobileMenuClick}>
+                <img src={mobileMenu ? closeMenuIcon : menuIcon} alt="кнопка меню"></img>
+            </button>
         </header>
     );
 }
+
 
 export default Header;
