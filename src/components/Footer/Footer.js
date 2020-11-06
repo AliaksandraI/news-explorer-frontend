@@ -11,7 +11,7 @@ function Footer () {
             <p className="footer__name">&copy; 2020 Supersite, Powered by News API</p>
             <div className="footer__menu">
                 <div className="footer__menu-wrapper">
-                    <Link to="/" exact className="footer__menu-item" >
+                    <Link to="/" className="footer__menu-item" >
                         Главная
                     </Link>
                     <a className="footer__menu-item" href="https://praktikum.yandex.ru/">Яндекс.Практикум</a>

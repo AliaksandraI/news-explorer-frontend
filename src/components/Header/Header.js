@@ -21,21 +21,21 @@ function Header (props) {
 
     return (
         <header className={ mobileMenu ? "header header__mobile" : "header"}>
-            <Link to="/" exact className={props.isHeaderForMain ? "header__name" : "header__name_dark"}>
+            <Link to="/" className={props.isHeaderForMain ? "header__name" : "header__name_dark"}>
                 NewsExplorer
             </Link>
             <div className={ mobileMenu ? "header__menu-mobile" : "header__menu"}>
-                <Link to="/" exact className={props.isHeaderForMain ? "header__text header__text_active" : "header__text_dark"}>
+                <Link to="/" className={props.isHeaderForMain ? "header__text header__text_active" : "header__text_dark"}>
                     Главная
                  </Link>
-                 <Link to="/saved-news" exact className={props.isHeaderForMain ? "header_hidden" : "header__text_dark header__dark_active"} >
+                 <Link to="/saved-news" className={props.isHeaderForMain ? "header_hidden" : "header__text_dark header__dark_active"} >
                     Сохраненные статьи
                  </Link>
                  <button className={props.isHeaderForMain ? "header__button" : "header_hidden"} onClick={props.onAuthButtonClick}>
                     <p className="header__button-text">Авторизоваться</p> 
                 </button>
                 <button className={props.isHeaderForMain ? "header_hidden" : "header__button_dark"}>
-                    <Link to="/" exact className="header__button-text header__button-text_dark">
+                    <Link to="/" className="header__button-text header__button-text_dark">
                         Грета 
                      </Link>
                     <img src={logoutPath} className="header__logo" alt="кнопка вылогиниться"/>

@@ -82,13 +82,13 @@ class LoginForm extends Component  {
         return (
             <PopupWithForm name="login_form" title="Вход" isOpen={this.props.isOpen} onClose={this.props.onClose} >
                         <span className="form__input-name">Email</span>
-                        <input id="email-input-login" type="email" required placeholder="Введите почту"
+                        <input id="email-input-login" type="email" autoComplete="useremail" required placeholder="Введите почту"
                                 className="popup__text form__input" 
                                 name='email' onChange={this.handleChange} noValidate ></input>
                         {errors.email.length > 0 &&<span className="form__error">{errors.email}</span>}
 
                         <span className="form__input-name">Пароль</span>
-                        <input id="password-input-login" type="password" required placeholder="Введите пароль"
+                        <input id="password-input-login" type="password" autoComplete="current-password" required placeholder="Введите пароль"
                                 className="popup__text form__input" name='password' onChange={this.handleChange} noValidate
                                 ></input>
                         {errors.password.length > 0 &&<span id="url-input-error" className="form__error">{errors.password}</span>}
