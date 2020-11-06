@@ -175,10 +175,16 @@
 }
 
 @media screen and (max-width: 560px) {
+    .header{
+        position: -webkit-sticky;
+        position: sticky;   
+    }
+   
     .header__mobile {
         min-height: 56px;
         background: #1A1B22;
         box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
+        
     }
 
     .header__menu-button{
