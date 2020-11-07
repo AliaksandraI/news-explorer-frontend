@@ -1,0 +1,140 @@
+.card {
+    max-width: 400px;
+    border-radius: 10px 10px 10px 10px;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+}
+
+.card__image {
+    width: 100%;
+    height: 272px;
+    object-fit: cover;
+    border: none;
+}
+
+.card__wrapper{
+    display: flex;
+    flex-direction: column;
+    padding: 20px 24px 20px 20px;
+    background: #FFFFFF;
+    border: none;
+}
+
+.card__date{
+    font-family: 'Source Sans Pro', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: #B6BCBF;
+    margin: 0;
+    margin: 0 0 12px 0;
+}
+
+.card__subtitle{
+    font-family: 'Roboto Slab', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 26px;
+    line-height: 30px;
+    color: #1A1B22;
+    margin: 0 0 16px 0;
+}
+
+.card__description{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    color: #1A1B22;
+    margin: 0 0 18px 0;
+}
+
+.card__source{
+    font-family: 'Roboto Slab', sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    color: #B6BCBF;
+    margin: 0;
+}
+
+.card__save-button{
+    width: 40px;
+    height: 40px;
+    background: #FFFFFF;
+    border-radius: 8px;
+    position: absolute;
+    right: 24px;
+    top: 24px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.card__save-button:hover{
+    cursor: pointer;
+}
+
+.card__keyword{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+    background: #FFFFFF;
+    border-radius: 10px;
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    padding: 8px 10px;
+    margin: 0;
+}
+
+.card__keyword_hidden{
+    display: none;
+}
+
+@media screen and (max-width: 1244px) { 
+
+.card__subtitle{
+    font-size: 22px;
+    line-height: 24px;
+    margin: 0 0 10px 0;
+}
+
+.card__description{
+    margin: 0 0 12px 0;
+}
+}    
+
+@media screen and (max-width: 768px) { 
+
+    .card__image {
+        height: 150px;
+    }
+    
+    .card__description{
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+} 
+
+@media screen and (max-width: 768px) { 
+    .card {
+        max-width: 288px;
+    }
+}

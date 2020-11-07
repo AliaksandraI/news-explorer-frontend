@@ -1,0 +1,17 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+
+
+a {
+  color: white; 
+  text-decoration: none;
+}
+
+a :hover{
+  cursor: pointer;
+}
+
+:active, :hover, :focus {
+  outline: 0;
+  outline-offset: 0;
+}
