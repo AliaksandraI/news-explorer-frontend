@@ -80,17 +80,16 @@ class LoginForm extends Component  {
     render(){
         const {errors} = this.state;
         return (
-            <PopupWithForm name="login_form" title="Вход" isOpen={this.props.isOpen} onClose={this.props.onClose} >
+            <PopupWithForm name="login_form" title="Вход" isOpen={this.props.isOpen} onClose={this.onClose} >
                         <span className="form__input-name">Email</span>
                         <input id="email-input-login" type="email" autoComplete="useremail" required placeholder="Введите почту"
                                 className="popup__text form__input" 
-                                name='email' onChange={this.handleChange} noValidate ></input>
+                                name='email' onChange={this.handleChange} noValidate value={this.state.email}></input>
                         {errors.email.length > 0 &&<span className="form__error">{errors.email}</span>}
 
                         <span className="form__input-name">Пароль</span>
                         <input id="password-input-login" type="password" autoComplete="current-password" required placeholder="Введите пароль"
-                                className="popup__text form__input" name='password' onChange={this.handleChange} noValidate
-                                ></input>
+                                className="popup__text form__input" name='password' onChange={this.handleChange} noValidate value={this.state.password}></input>
                         {errors.password.length > 0 &&<span id="url-input-error" className="form__error">{errors.password}</span>}
 
                         <button type="submit" className={this.state.isEnabled ? "popup__button_active" : "popup__button"}>Войти</button>
@@ -103,8 +102,8 @@ class LoginForm extends Component  {
             this.props.onClose();
             this.setState({
                 isEnabled: false,
-                email: null,
-                password: null,
+                email: '',
+                password: '',
                 errors: {
                     userName: '',
                     email: '',

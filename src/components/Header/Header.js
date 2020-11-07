@@ -1,6 +1,7 @@
 import React from 'react';
 import logoutPath from '../../images/logout_arrow.svg';
-import menuIcon from '../../images/menu_icon.svg';
+import menuIconDark from '../../images/menu_icon.svg';
+import menuIconLight from '../../images/menu_icon-light.svg';
 import closeMenuIcon from '../../images/menu_closeicon.svg';
 import { Link } from 'react-router-dom'; 
 
@@ -14,14 +15,15 @@ function Header (props) {
         if (mobileMenu){
             openMobileMenu(false)
         } else {
-            openMobileMenu(true)
+            openMobileMenu(true);
+            
         }
     }
 
 
     return (
         <header className={ mobileMenu ? "header header__mobile" : "header"}>
-            <Link to="/" className={props.isHeaderForMain ? "header__name" : "header__name_dark"}>
+            <Link to="/" className={props.isHeaderForMain ? "header__name" : `${mobileMenu  ? 'header__name' : 'header__name_dark'}`}>
                 NewsExplorer
             </Link>
             <div className={ mobileMenu ? "header__menu-mobile" : "header__menu"}>
@@ -42,7 +44,7 @@ function Header (props) {
                 </button>
             </div>
             <button className="header__menu-button" type="button" onClick={handleMobileMenuClick}>
-                <img src={mobileMenu ? closeMenuIcon : menuIcon} alt="кнопка меню"></img>
+                <img src={mobileMenu ? closeMenuIcon : `${ props.isHeaderForMain  ? menuIconDark : menuIconLight}`} alt="кнопка меню"></img>
             </button>
         </header>
     );

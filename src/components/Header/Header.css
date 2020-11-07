@@ -5,6 +5,7 @@
     justify-content: space-between;
     border-bottom:solid 1px #D1D2D6;
     position: relative;
+    z-index: 2;
 }
 
 
@@ -44,6 +45,7 @@
 }
 
 .header__menu-mobile {
+    visibility: hidden;
     position: absolute;
     top: 56px;
     height: 230px;
@@ -174,12 +176,16 @@
     }
 }
 
-@media screen and (max-width: 560px) {
+@media screen and (max-width: 600px) {
     .header{
         position: -webkit-sticky;
         position: sticky;   
     }
    
+    .header__menu-mobile {
+        visibility: visible;
+    }
+
     .header__mobile {
         min-height: 56px;
         background: #1A1B22;
@@ -208,9 +214,6 @@
         margin-left: 16px;
     }
 
-    .header__name_dark {
-        color: #FFFFFF;
-    }
     .header__text_dark {
         font-size: 18px;
         color: #FFFFFF;

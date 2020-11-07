@@ -19,9 +19,9 @@ class RegistrationForm extends Component {
         super(props);
         this.state = {
             isEnabled: false,
-          userName: null,
-          email: null,
-          password: null,
+          userName: '',
+          email: '',
+          password: '',
           errors: {
             userName: '',
             email: '',
@@ -93,20 +93,20 @@ class RegistrationForm extends Component {
                     <span className="form__input-name">Email</span>
                     <input id="email-input-registration" type="email" autoComplete="useremail" required placeholder="Введите почту"
                             className="popup__text form__input" 
-                            name='email' onChange={this.handleChange} noValidate ></input>
+                            name='email' onChange={this.handleChange} noValidate value={this.state.email}></input>
                     {errors.email.length > 0 &&<span className="form__error">{errors.email}</span>}
 
                     <span className="form__input-name">Пароль</span>
                     <input id="password-input-registration" type="password" autoComplete="current-password" required placeholder="Введите пароль"
-                            className="popup__text form__input" name='password' onChange={this.handleChange} noValidate 
+                            className="popup__text form__input" name='password' onChange={this.handleChange} noValidate  value={this.state.password}
                             ></input>
                     {errors.password.length > 0 &&<span id="url-input-error" className="form__error">{errors.password}</span>}
 
                     <span className="form__input-name">Имя</span>
                     <input id="text-input-registration" type="text" required placeholder="Введите своё имя"
-                            className="popup__text form__input" name='userName' onChange={this.handleChange} noValidate 
+                            className="popup__text form__input" name='userName' onChange={this.handleChange} noValidate value={this.state.userName}
                             ></input>
-                    {errors.userName.length > 0 &&<span id="url-input-error" className="form__error">{errors.userName}</span>}
+                    {errors.userName.length > 0 &&<span id="url-input-error" className="form__error form__error-user">{errors.userName}</span>}
 
                     <button type="submit" className={this.state.isEnabled ? "popup__button_active" : "popup__button"} onClick={this.handleSuccesfulRegistration}>Зарегистрироваться</button>
                     <p className="form__link-wrapper">или<span className="form__link-text" onClick={this.onLoginButtonClick}> Войти</span></p>                   
@@ -119,9 +119,9 @@ class RegistrationForm extends Component {
         this.props.onClose();
         this.setState({
             isEnabled: false,
-            userName: null,
-            email: null,
-            password: null,
+            userName: '',
+            email: '',
+            password: '',
             errors: {
                 userName: '',
                 email: '',
