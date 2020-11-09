@@ -8,6 +8,7 @@ import RegistrationForm from '../RegistrationForm/RegistrationForm.js';
 import LoginForm from '../LoginForm/LoginForm.js';
 import SuccesfulRegistrationForm from '../SuccesfulRegistrationForm/SuccesfulRegistrationForm.js';
 import Footer from '../Footer/Footer.js';
+import { CurrentUser} from '../App/App.js';
 
 import './Main.css';
 import '../NewsCardList/NewsCardList.css';
@@ -15,9 +16,12 @@ import '../NewsCardList/NewsCardList.css';
 
 class Main extends React.Component{
 
+    static contextType = CurrentUser;
+
     constructor(){
         super();
         this.state = {
+
             isLoginFormOpen: false,
             isRegistrationFormOpen: false,
             isSuccesfulRegistrationFormOpen: false,
