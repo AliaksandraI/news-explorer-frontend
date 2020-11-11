@@ -4,13 +4,13 @@ import menuIconDark from '../../images/menu_icon.svg';
 import menuIconLight from '../../images/menu_icon-light.svg';
 import closeMenuIcon from '../../images/menu_closeicon.svg';
 import { Link } from 'react-router-dom'; 
-import { CurrentUser} from '../App/App.js';
+
 
 import './Header.css';
 
 function Header (props) {
 
-    const userFromContext= React.useContext(CurrentUser);
+  
 
     const [mobileMenu, openMobileMenu] = React.useState(false);
 

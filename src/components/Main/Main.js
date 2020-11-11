@@ -8,15 +8,14 @@ import RegistrationForm from '../RegistrationForm/RegistrationForm.js';
 import LoginForm from '../LoginForm/LoginForm.js';
 import SuccesfulRegistrationForm from '../SuccesfulRegistrationForm/SuccesfulRegistrationForm.js';
 import Footer from '../Footer/Footer.js';
-import { CurrentUser} from '../App/App.js';
+
 
 import './Main.css';
 import '../NewsCardList/NewsCardList.css';
 
 
 class Main extends React.Component{
-
-    static contextType = CurrentUser;
+   
 
     constructor(){
         super();
@@ -44,11 +43,11 @@ class Main extends React.Component{
                 </section>
                 <Preloader />
                 <About />
-                <LoginForm isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
+                <LoginForm handleLogin={this.props.handleLogin} authorize={this.props.authorize} isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
                 </LoginForm >
-                <RegistrationForm isOpen={this.state.isRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick} onSuccesfulRegistration={this.handleSuccesfulRegistration}>
+                <RegistrationForm register={this.props.register} isOpen={this.state.isRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick} onSuccesfulRegistration={this.handleSuccesfulRegistration} >
                 </RegistrationForm>
-                <SuccesfulRegistrationForm isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick}>
+                <SuccesfulRegistrationForm  isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick}>
                 </SuccesfulRegistrationForm>
                 <Footer />
         </div>

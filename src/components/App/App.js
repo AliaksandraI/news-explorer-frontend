@@ -2,20 +2,19 @@ import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch, Router } from 'react-router-dom';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
+//import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 import history from '../../utils/History.js';
+import * as auth from '../../utils/Auth.js';
 import './App.css';
 
-export const CurrentUser = React.createContext();
 
 class App extends React.Component{
 
-  static contextType = CurrentUser;
+  
 
   constructor(){
     super();
     this.state = {
-      currentUser: this.createDefaultUser(),
       loggedIn: false,
     
     }
@@ -28,7 +27,51 @@ class App extends React.Component{
         about: 'No description',
         avatar: 'FakeAvatarPath'
     };
-}
+  }
+
+  authorize = (email, password) => {
+    return auth.authorize(email, password)
+  }
+
+  register = (name, email, password ) => {
+      return auth.register(name, email, password)
+  }
+
+  handleTokenCheck() {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+        auth.checkToken(jwt).then((res) => {
+            console.log(res);
+            if (res) {
+                this.setState({
+                    loggedIn: true,
+                    UserData: {
+                        email: res.email
+                    }
+                }, () => {
+                    history.push("/saved-news");
+                });
+            }
+        });
+    }
+  }
+
+  handleLogin = () => {
+    this.setState({
+        loggedIn: true
+    }, () => { this.handleTokenCheck()});
+  }
+
+  handleLogout = () => {
+      localStorage.removeItem('jwt');
+      this.setState({
+          loggedIn: false,
+          UserData: {
+              email: "email"
+          }
+      });
+  }
+
 
 
   render(){
@@ -36,18 +79,18 @@ class App extends React.Component{
       <Router history={history}>
         <BrowserRouter>
           <div className="page">
-          <CurrentUser.Provider>
             <Switch>
-                <Route path="/" component={Main} exact/>
-                <ProtectedRoute path="/saved-news" component={SavedNews}
-                  currentUser={this.state.currentUser}
-                  
-                  />
+                <Route path="/" exact>
+                    <Main loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} authorize={this.authorize} register={this.register}/>
+                </Route>
+                <Route path="/saved-news" >
+                    < SavedNews loggedIn={this.state.loggedIn} />
+                </Route>
                 <Route path="*">
                   { this.state.loggedIn ? <Redirect to="/saved-news" /> : <Redirect to="/" /> }
                 </Route>
             </Switch>
-            </CurrentUser.Provider>
+            
           </div>
         </BrowserRouter>
       </Router>

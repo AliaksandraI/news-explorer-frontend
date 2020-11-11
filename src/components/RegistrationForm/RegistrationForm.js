@@ -19,14 +19,14 @@ class RegistrationForm extends Component {
         super(props);
         this.state = {
             isEnabled: false,
-          userName: '',
-          email: '',
-          password: '',
-          errors: {
-            userName: '',
             email: '',
             password: '',
-          }
+            userName: '',
+            errors: {
+              userName: '',
+              email: '',
+              password: '',
+            }
         };
     }
 
@@ -73,23 +73,23 @@ class RegistrationForm extends Component {
         this.setState({
             isEnabled: false,})
     }
-    }
-
-  handleSubmit = (event) => {
-    event.preventDefault();
-    if(validateForm(this.state.errors)) {
-      console.info('Valid Form')
-    }else{
-      console.error('Invalid Form')
-    }
   }
 
-
-
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.register(this.state.userName, this.state.email, this.state.password)
+    .then((res) => {
+        this.handleSuccesfulRegistration();  
+      }
+    )
+    .catch((err) => {
+      console.log('Произошла ошибка.');
+    });  
+  }
     render(){
     const {errors} = this.state;
     return (
-        <PopupWithForm name="registration_form" title="Регистрация" isOpen={this.props.isOpen} onClose={this.onClose} onSubmit={this.handleSuccesfulRegistration} noValidate>
+        <PopupWithForm name="registration_form" title="Регистрация" isOpen={this.props.isOpen} onClose={this.onClose} onSubmit={this.handleSubmit} noValidate>
                     <span className="form__input-name">Email</span>
                     <input id="email-input-registration" type="email" autoComplete="useremail" required placeholder="Введите почту"
                             className="popup__text form__input" 
@@ -108,7 +108,7 @@ class RegistrationForm extends Component {
                             ></input>
                     {errors.userName.length > 0 &&<span id="url-input-error" className="form__error form__error-user">{errors.userName}</span>}
 
-                    <button type="submit" className={this.state.isEnabled ? "popup__button_active" : "popup__button"} onClick={this.handleSuccesfulRegistration}>Зарегистрироваться</button>
+                    <button type="submit" className={this.state.isEnabled ? "popup__button_active" : "popup__button"} onClick={this.handleSubmit}>Зарегистрироваться</button>
                     <p className="form__link-wrapper">или<span className="form__link-text" onClick={this.onLoginButtonClick}> Войти</span></p>                   
         </PopupWithForm>
     )}
@@ -134,10 +134,10 @@ class RegistrationForm extends Component {
         this.props.onLoginButtonClick();
     }
 
+
     handleSuccesfulRegistration=(event)=> {
-        event.preventDefault();
-        this.props.onClose();
-        this.props.onSuccesfulRegistration();
+      this.props.onClose();
+      this.props.onSuccesfulRegistration();
     }
 }
 
