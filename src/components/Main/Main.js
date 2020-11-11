@@ -31,12 +31,12 @@ class Main extends React.Component{
         return (
             <div >
                 <div className="main__header-image">
-                    <Header isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick}/>
+                    <Header loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
                     <Search />
                 </div>
                 <section className="cards">
                     <h2 className="cards__title">Результаты поиска</h2>
-                    <NewsCardList  isSavedNews={false}/>
+                    <NewsCardList loggedIn={this.props.loggedIn} isSavedNews={false}/>
                     <div className="cards__button-wrapper">
                         <button className="cards__button">Показать еще</button>
                     </div>
@@ -53,6 +53,7 @@ class Main extends React.Component{
         </div>
         );
     }
+
 
     handleLoginClick = () => {
         this.setState({ isLoginFormOpen: true });

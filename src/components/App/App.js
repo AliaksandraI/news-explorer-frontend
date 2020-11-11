@@ -66,13 +66,11 @@ class App extends React.Component{
       localStorage.removeItem('jwt');
       this.setState({
           loggedIn: false,
-          UserData: {
+          /*UserData: {
               email: "email"
-          }
+          }*/
       });
   }
-
-
 
   render(){
     return(
@@ -81,10 +79,10 @@ class App extends React.Component{
           <div className="page">
             <Switch>
                 <Route path="/" exact>
-                    <Main loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} authorize={this.authorize} register={this.register}/>
+                    <Main loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} authorize={this.authorize} register={this.register}/>
                 </Route>
                 <Route path="/saved-news" >
-                    < SavedNews loggedIn={this.state.loggedIn} />
+                    < SavedNews />
                 </Route>
                 <Route path="*">
                   { this.state.loggedIn ? <Redirect to="/saved-news" /> : <Redirect to="/" /> }
