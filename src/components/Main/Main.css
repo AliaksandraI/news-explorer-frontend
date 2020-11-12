@@ -6,6 +6,13 @@
     position: relative;
 }
 
+.main__section-hidden{
+    display: none;
+}
+
+.main__section-visible{
+   display: block;
+}
 
 @media screen and (max-width: 550px) { 
     .main__header-image{

@@ -34,14 +34,14 @@ class Main extends React.Component{
                     <Header loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
                     <Search />
                 </div>
-                <section className="cards">
+                <section className="cards main__section-hidden">
                     <h2 className="cards__title">Результаты поиска</h2>
                     <NewsCardList loggedIn={this.props.loggedIn} isSavedNews={false}/>
                     <div className="cards__button-wrapper">
                         <button className="cards__button">Показать еще</button>
                     </div>
                 </section>
-                <Preloader />
+                <Preloader visibility={"main__section-hidden"}/>
                 <About />
                 <LoginForm handleLogin={this.props.handleLogin} authorize={this.props.authorize} isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
                 </LoginForm >
