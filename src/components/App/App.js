@@ -5,6 +5,7 @@ import SavedNews from '../SavedNews/SavedNews.js';
 //import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 import history from '../../utils/History.js';
 import * as auth from '../../utils/Auth.js';
+import * as newsSearch from '../../utils/NewsApi.js';
 import './App.css';
 
 
@@ -36,6 +37,10 @@ class App extends React.Component{
   register = (name, email, password ) => {
       return auth.register(name, email, password)
   }
+
+  sendNewsRequest = (request) => {
+    return newsSearch.sendRequest(request)
+}
 
   handleTokenCheck() {
     const jwt = localStorage.getItem('jwt');
@@ -79,7 +84,7 @@ class App extends React.Component{
           <div className="page">
             <Switch>
                 <Route path="/" exact>
-                    <Main loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} authorize={this.authorize} register={this.register}/>
+                    <Main loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} authorize={this.authorize} register={this.register} sendNewsRequest={this.sendNewsRequest}/>
                 </Route>
                 <Route path="/saved-news" >
                     < SavedNews />

@@ -32,7 +32,7 @@ class Main extends React.Component{
             <div >
                 <div className="main__header-image">
                     <Header loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
-                    <Search />
+                    <Search sendNewsRequest={this.props.sendNewsRequest}/>
                 </div>
                 <section className="cards main__section-hidden">
                     <h2 className="cards__title">Результаты поиска</h2>

@@ -1,4 +1,5 @@
-export const BASE_URL = 'https://newsapi.org'
+export const BASE_URL = 'http://newsapi.org/v2/top-headlines?'
+const apiKey = 'd30275b0cb0140df880e73d671eefb5b';
 
 function getResponseData (res) {
   if (res.ok) {
@@ -7,11 +8,20 @@ function getResponseData (res) {
   return Promise.reject(new Error(`Ошибка: ${res.status}`))
 };
 
-export const newsSearch = ( request) => {
-  return fetch(`${BASE_URL}/v2/top-headlines?country=us&apiKey=[ваш_ключ]`, {
-    method: 'POST',
+export const sendRequest = ( request ) => {
+    console.log("API!")
+  return fetch(`${BASE_URL}+'/v2/top-headlines?country=us&'`, 
+  {
+    method: 'GET',
     headers: {
       'Content-Type': 'application/json'
+    },
+    params:{
+        'q' : `${request}`,
+        'apiKey' : `${apiKey}`,
+        'from' : `${new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)}`,
+        'to' : `${Date.now()}`,
+        'pageSize': '100'
     },
     body: JSON.stringify({ request })
   })
@@ -20,3 +30,4 @@ export const newsSearch = ( request) => {
       return res
     })
 }
+

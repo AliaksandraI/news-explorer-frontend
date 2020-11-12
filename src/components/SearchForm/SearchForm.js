@@ -58,8 +58,8 @@ class SearchForm extends Component {
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
-    this.props.register(this.state.searchRequest)
+    //e.preventDefault();
+    this.props.sendNewsRequest(this.state.searchRequest)
     .then((res) => {
         this.onSendingRequest();
         //this.handleSuccesfulRegistration();  
