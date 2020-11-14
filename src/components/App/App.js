@@ -22,7 +22,20 @@ class App extends React.Component{
       isPreloading: false,
       isNothingFound: true,
       articles: [],
-      savedArticles: []
+      savedArticles: [],
+      visibleCount: 3
+    }
+  }
+
+  onArticleListClick = () => {
+    if (this.state.articles.length > this.state.visibleCount) {
+        let increment = 3;
+        if(this.state.articles.length - this.state.visibleCount < 3) {
+            increment = this.state.articles.length - this.state.visibleCount;
+        }
+        this.setState({
+            visibleCount: this.state.visibleCount + increment,
+        })
     }
   }
 
@@ -51,13 +64,15 @@ class App extends React.Component{
               articles: res.articles,
               preloaderSectionVisible:false,
               isPreloading: false,
-              isNothingFound: false
+              isNothingFound: false,
+              visibleCount: 3
           });
         } else {
           this.setState({
             preloaderSectionVisible:true,
             isPreloading: false,
             isNothingFound: true,
+            visibleCount: 0
         });
         }
       })
@@ -117,7 +132,9 @@ class App extends React.Component{
           <div className="page">
             <Switch>
                 <Route path="/" exact>
-                    <Main articles={this.state.articles} 
+                    <Main articles={this.state.articles.slice(0, this.state.visibleCount)}
+                          onArticleListClick = {this.onArticleListClick}
+                          areThereMoreArticles = {this.state.articles.length > this.state.visibleCount}
                           preloaderSectionVisible={this.state.preloaderSectionVisible} 
                           loggedIn={this.state.loggedIn}
                           handleArticleSaving={this.handleArticleSaving} 

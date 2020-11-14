@@ -22,7 +22,7 @@ class Main extends React.Component{
         this.state = {
             isLoginFormOpen: false,
             isRegistrationFormOpen: false,
-            isSuccesfulRegistrationFormOpen: false,
+            isSuccesfulRegistrationFormOpen: false
         }
     }
 
@@ -35,9 +35,9 @@ class Main extends React.Component{
                 </div>
                 <section className={!this.props.isNothingFound ? "cards" : "cards main__section-hidden"} >
                     <h2 className="cards__title">Результаты поиска</h2>
-                    <NewsCardList articles={this.props.articles} loggedIn={this.props.loggedIn} handleArticleSaving={this.props.handleArticleSaving} isSavedNews={false}/>
-                    <div className={ this.props.totalResults > 3 ? "cards__button-wrapper" : "cards__button-wrapper main__section-hidden" }>
-                        <button className="cards__button">Показать еще</button>
+                    <NewsCardList articles={this.props.articles.slice(0, this.state.visibleCount)} loggedIn={this.props.loggedIn} handleArticleSaving={this.props.handleArticleSaving} isSavedNews={false}/>
+                    <div className={ this.props.areThereMoreArticles ? "cards__button-wrapper" : "cards__button-wrapper main__section-hidden" }>
+                        <button onClick={this.props.onArticleListClick} className="cards__button">Показать еще</button>
                     </div>
                 </section>
                 <Preloader visibility={this.props.preloaderSectionVisible  ? " " : "main__section-hidden"} isPreloading={this.props.isPreloading} isNothingFound={this.props.isNothingFound}/>

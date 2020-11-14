@@ -35,7 +35,7 @@ export class API {
 
   addNewArticle (article) {
     this._setAuthorizationHeader();
-    return fetch(`${this._baseUrl}/cards`, {
+    return fetch(`${this._baseUrl}/articles`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
@@ -45,7 +45,8 @@ export class API {
         date: article.publishedAt, 
         source: article.source.name, 
         link : article.url, 
-        image: article.urlToImage,
+        image: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.wired.com%2Fstory%2Fcats-australia-bushfires%2F&psig=AOvVaw0NLdQ647GbOFpCk2FovlcT&ust=1603052382717000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPis4da5vOwCFQAAAAAdAAAAABAD",
+        //article.urlToImage,
       })
     })
       .then(this._getResponseData)

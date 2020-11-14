@@ -15,16 +15,20 @@ class NewsCard extends Component {
         super(props);
         this.state = {
             notLogedMessageShown:false,
+            articleIsSaved:false,
         }
     };
 
 
     handleSaveArticleClick = () => {
         if(this.props.loggedIn){
-            this.props.handleArticleSaving(this.props.article)
-        } else {
+            this.props.handleArticleSaving(this.props.article);
             this.setState({
                 notLogedMessageShown: true,
+            })
+        } else {
+            this.setState({
+                articleIsSaved: true,
             })
         }
     }
@@ -53,7 +57,7 @@ class NewsCard extends Component {
                 <p className={this.props.isSavedNews ? "card__keyword" : "card__keyword_hidden"}>Природа</p>
                 <p className={this.state.notLogedMessageShown ? "card__keyword-notlogedin" : "card__keyword_hidden"}>Войдите, чтобы сохранять статьи</p>
                 <button type="button" className="card__save-button" >
-                    <img src={this.props.isSavedNews ? deleteArticle : saveArticle}  
+                    <img src={this.props.isSavedNews ? deleteArticle : `${this.props.articleIsSaved  ? saveArticleMarked : saveArticle}`}  
                     onClick={this.handleSaveArticleClick} alt="Знак сохранения статьи"></img>
                 </button>
             </div>
