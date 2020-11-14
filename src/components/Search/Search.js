@@ -8,7 +8,7 @@ function Search (props) {
         <section className="search">
             <h1 className="search__title">Что творится в мире?</h1>
             <h2 className="search__subtitle">Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.</h2>
-            <SearchForm sendNewsRequest={props.sendNewsRequest}/>
+            <SearchForm sucessfulSearchRequest={props.sucessfulSearchRequest} sendNewsRequest={props.sendNewsRequest}/>
         </section>
     );
 }

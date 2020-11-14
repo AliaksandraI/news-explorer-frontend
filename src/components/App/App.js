@@ -17,17 +17,9 @@ class App extends React.Component{
     super();
     this.state = {
       loggedIn: false,
-    
+      sucessfulSearchRequest: false,
+      articles: []
     }
-  }
-
-  createDefaultUser = () => {
-    return {
-        _id: -1,
-        name: 'No name',
-        about: 'No description',
-        avatar: 'FakeAvatarPath'
-    };
   }
 
   authorize = (email, password) => {
@@ -40,7 +32,17 @@ class App extends React.Component{
 
   sendNewsRequest = (request) => {
     return newsSearch.sendRequest(request)
-}
+      .then((res)=>{    
+        console.log(res); 
+          this.setState({
+              sucessfulSearchRequest: true,
+              articles: res.articles
+          });
+      })
+      .catch(err => {
+        console.log(err);
+    });
+  }
 
   handleTokenCheck() {
     const jwt = localStorage.getItem('jwt');
@@ -71,9 +73,6 @@ class App extends React.Component{
       localStorage.removeItem('jwt');
       this.setState({
           loggedIn: false,
-          /*UserData: {
-              email: "email"
-          }*/
       });
   }
 
@@ -84,7 +83,7 @@ class App extends React.Component{
           <div className="page">
             <Switch>
                 <Route path="/" exact>
-                    <Main loggedIn={this.state.loggedIn} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} authorize={this.authorize} register={this.register} sendNewsRequest={this.sendNewsRequest}/>
+                    <Main articles={this.state.articles} loggedIn={this.state.loggedIn} sucessfulSearchRequest={this.state.sucessfulSearchRequest} handleLogin={this.handleLogin} handleLogOut={this.handleLogOut} authorize={this.authorize} register={this.register} sendNewsRequest={this.sendNewsRequest}/>
                 </Route>
                 <Route path="/saved-news" >
                     < SavedNews />

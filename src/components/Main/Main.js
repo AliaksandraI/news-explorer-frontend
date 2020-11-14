@@ -32,11 +32,11 @@ class Main extends React.Component{
             <div >
                 <div className="main__header-image">
                     <Header loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
-                    <Search sendNewsRequest={this.props.sendNewsRequest}/>
+                    <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest}/>
                 </div>
                 <section className="cards main__section-hidden">
                     <h2 className="cards__title">Результаты поиска</h2>
-                    <NewsCardList loggedIn={this.props.loggedIn} isSavedNews={false}/>
+                    <NewsCardList articles={this.props.articles} loggedIn={this.props.loggedIn} isSavedNews={false}/>
                     <div className="cards__button-wrapper">
                         <button className="cards__button">Показать еще</button>
                     </div>

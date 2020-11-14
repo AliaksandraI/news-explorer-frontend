@@ -57,21 +57,13 @@ class SearchForm extends Component {
     }
   }
 
-  handleSubmit = (e) => {
-    //e.preventDefault();
-    this.props.sendNewsRequest(this.state.searchRequest)
-    .then((res) => {
-
-        console.log(res);
-        this.onSendingRequest();
-        //this.handleSuccesfulRegistration();  
-      }
-    )
-    .catch((err) => {
-        this.onSendingRequest();
-      console.log('Произошла ошибка.');
-    });  
+  handleSubmit = () => {
+    this.props.sendNewsRequest(this.state.searchRequest);
+    this.onSendingRequest();
+    
   }
+
+  
 
 
     render(){
