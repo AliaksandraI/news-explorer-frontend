@@ -70,7 +70,6 @@ class LoginForm extends Component  {
   handleSubmit = (event) => {
     event.preventDefault();
     if(validateForm(this.state.errors)) {
-      console.info('Valid Form');
       this.props.authorize(this.state.email, this.state.password)
       .then((data) => {
         if (data.token) {

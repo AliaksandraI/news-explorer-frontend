@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:4000/api'
+export const BASE_URL = 'http://alexvaitNews.students.nomoreparties.co/api'
 
 function getResponseData (res) {
   if (res.ok) {

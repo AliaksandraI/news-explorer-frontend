@@ -1,8 +1,6 @@
 export const apiConfig = {
-    baseUrl: 'https://newsapi.org',
+    baseUrl: 'http://localhost:4000/api',
     headers: {
       'Content-Type': 'application/json'
+    }
   }
-}
-
-  

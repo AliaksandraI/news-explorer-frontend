@@ -17,6 +17,9 @@
 	border-radius: 50%;
 	margin: 80px auto 24px;
     animation: spin .75s infinite linear;
+}
+
+.preloader__circle_hidden {
     display: none;
 }
 
@@ -41,6 +44,11 @@
     text-align: center;
     color: #1A1B22;
     margin: 0 0 16px;
+    display: block;
+}
+
+.preloader__subtitle_hidden{
+    display: none;
 }
 
 .preloader__description{
@@ -53,6 +61,7 @@
     color: #B6BCBF;
     margin: 0 0 80px;
 }
+
 
 @media screen and (max-width: 1244px) { 
     .preloader{

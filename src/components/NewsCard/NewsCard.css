@@ -19,6 +19,8 @@
     padding: 20px 24px 20px 20px;
     background: #FFFFFF;
     border: none;
+    justify-content: space-between;
+    align-items: baseline;
 }
 
 .card__date{
@@ -96,6 +98,22 @@
     border-radius: 10px;
     position: absolute;
     left: 24px;
+    top: 24px;
+    padding: 8px 10px;
+    margin: 0;
+}
+.card__keyword-notlogedin{
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 24px;
+    text-align: center;
+    color: #000000;
+    background: #FFFFFF;
+    border-radius: 10px;
+    position: absolute;
+    right: 70px;
     top: 24px;
     padding: 8px 10px;
     margin: 0;

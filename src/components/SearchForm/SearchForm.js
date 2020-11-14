@@ -28,12 +28,11 @@ class SearchForm extends Component {
     event.preventDefault();
     const { name, value } = event.target;
     let errors = this.state.errors;
-    console.log(errors);
 
     switch (name) {
       case 'searchRequest': 
         errors.searchRequest = 
-          value.length < 5
+          value.length < 2
             ? 'Нужно ввести ключевое слово'
             : '';
         break;

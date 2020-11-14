@@ -8,7 +8,7 @@ function NewsCardList (props) {
         <section className="cards">
                 <div className="cards__wrapper">
                     {props.articles.map((article, i ) => (
-                        <NewsCard  article={article} index={i} key={i} isSavedNews={props.isSavedNews}/>
+                        <NewsCard  article={article} index={i} key={i} loggedIn={props.loggedIn} handleArticleSaving={props.handleArticleSaving} isSavedNews={props.isSavedNews}/>
                         )
                     )}
                 </div>

@@ -17,10 +17,9 @@ import '../NewsCardList/NewsCardList.css';
 class Main extends React.Component{
    
 
-    constructor(){
+    constructor(props){
         super();
         this.state = {
-
             isLoginFormOpen: false,
             isRegistrationFormOpen: false,
             isSuccesfulRegistrationFormOpen: false,
@@ -34,14 +33,14 @@ class Main extends React.Component{
                     <Header loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
                     <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest}/>
                 </div>
-                <section className="cards main__section-hidden">
+                <section className={!this.props.isNothingFound ? "cards" : "cards main__section-hidden"} >
                     <h2 className="cards__title">Результаты поиска</h2>
-                    <NewsCardList articles={this.props.articles} loggedIn={this.props.loggedIn} isSavedNews={false}/>
-                    <div className="cards__button-wrapper">
+                    <NewsCardList articles={this.props.articles} loggedIn={this.props.loggedIn} handleArticleSaving={this.props.handleArticleSaving} isSavedNews={false}/>
+                    <div className={ this.props.totalResults > 3 ? "cards__button-wrapper" : "cards__button-wrapper main__section-hidden" }>
                         <button className="cards__button">Показать еще</button>
                     </div>
                 </section>
-                <Preloader visibility={"main__section-hidden"}/>
+                <Preloader visibility={this.props.preloaderSectionVisible  ? " " : "main__section-hidden"} isPreloading={this.props.isPreloading} isNothingFound={this.props.isNothingFound}/>
                 <About />
                 <LoginForm handleLogin={this.props.handleLogin} authorize={this.props.authorize} isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
                 </LoginForm >
