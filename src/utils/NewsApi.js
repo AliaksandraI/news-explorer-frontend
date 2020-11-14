@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://newsapi.org/v2/top-headlines?'
+export const BASE_URL = 'http://newsapi.org/v2/top-headlines?country=us'
 const apiKey = 'd30275b0cb0140df880e73d671eefb5b';
 
 function getResponseData (res) {
@@ -9,25 +9,16 @@ function getResponseData (res) {
 };
 
 export const sendRequest = ( request ) => {
-    console.log("API!")
-  return fetch(`${BASE_URL}+'/v2/top-headlines?country=us&'`, 
+
+  return fetch(`${BASE_URL}`
+                +`&q=${encodeURIComponent(request)}`
+                +`&from=${new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)}`
+                +`&to=${new Date(Date.now())}`
+                +`&apiKey=${apiKey}`
+                +`&pageSize=${100}`
+                ,
   {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    params:{
-        'q' : `${request}`,
-        'apiKey' : `${apiKey}`,
-        'from' : `${new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)}`,
-        'to' : `${Date.now()}`,
-        'pageSize': '100'
-    },
-    body: JSON.stringify({ request })
   })
-    .then((res) => getResponseData(res))
-    .then((res) => {
-      return res
-    })
+    .then((res) => getResponseData(res) )
 }
-

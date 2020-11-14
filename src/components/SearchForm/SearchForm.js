@@ -61,6 +61,8 @@ class SearchForm extends Component {
     //e.preventDefault();
     this.props.sendNewsRequest(this.state.searchRequest)
     .then((res) => {
+
+        console.log(res);
         this.onSendingRequest();
         //this.handleSuccesfulRegistration();  
       }
