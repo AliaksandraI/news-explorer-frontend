@@ -10,6 +10,7 @@ import SuccesfulRegistrationForm from '../SuccesfulRegistrationForm/SuccesfulReg
 import Footer from '../Footer/Footer.js';
 
 
+
 import './Main.css';
 import '../NewsCardList/NewsCardList.css';
 
@@ -26,11 +27,13 @@ class Main extends React.Component{
         }
     }
 
+
     render () {
         return (
             <div >
+            
                 <div className="main__header-image">
-                    <Header loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
+                    <Header currentUser={this.props.currentUser} loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
                     <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest}/>
                 </div>
                 <section className={!this.props.isNothingFound ? "cards" : "cards main__section-hidden"} >
@@ -49,6 +52,7 @@ class Main extends React.Component{
                 <SuccesfulRegistrationForm  isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick}>
                 </SuccesfulRegistrationForm>
                 <Footer />
+            
         </div>
         );
     }

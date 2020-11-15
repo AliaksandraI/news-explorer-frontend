@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch, Router } from 'react-router-dom';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
-//import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 import history from '../../utils/History.js';
 import api from '../../utils/Api.js';
 import * as auth from '../../utils/Auth.js';
@@ -23,8 +23,19 @@ class App extends React.Component{
       isNothingFound: true,
       articles: [],
       savedArticles: [],
-      visibleCount: 3
+      visibleCount: 3,
+      currentUser: this.createDefaultUser(),
+      keyword:''
     }
+
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleTokenCheck = this.handleTokenCheck.bind(this);
+
+  }
+
+  componentDidMount() {
+    this.handleTokenCheck();
+    this.getUserInfo();
   }
 
   onArticleListClick = () => {
@@ -39,10 +50,6 @@ class App extends React.Component{
     }
   }
 
-  componentDidMount() {
-    this.handleTokenCheck();
-}
-
   authorize = (email, password) => {
     return auth.authorize(email, password)
   }
@@ -51,10 +58,34 @@ class App extends React.Component{
       return auth.register(name, email, password)
   }
 
+  getInitialArticles = () => {
+    api.getInitialArticles()
+    .then(articles => {
+      console.log(articles);
+        this.setState({ savedArticles: articles });
+    }).catch(err => {
+        console.log(err);
+    });
+  }
+
+  getUserInfo = () => {
+    api.getUserInfo()
+    .then(user => {
+      console.log(user)
+      localStorage.setItem('currentUser', user)
+      this.setState({ currentUser: localStorage.getItem('currentUser') });
+    }).catch(err => {
+        this.setState({ currentUser: this.createDefaultUser() });
+        console.log(err);
+    });
+}
+
+
   sendNewsRequest = (request) => {
     this.setState({
       preloaderSectionVisible:true,
       isPreloading: true,
+      keyword: request
     });
     return newsSearch.sendRequest(request)
       .then((res)=>{
@@ -82,22 +113,31 @@ class App extends React.Component{
   }
 
   handleArticleSaving = (article)  => {
-    api.addNewArticle(article)
+    api.addNewArticle(article, this.state.keyword)
         .then((article) => {
-            console.log(article);
             this.setState({ savedArticles: [...this.state.savedArticles, article] });
         })
         .catch(err => {
             console.log(err);
         });
   }
+
+
+  handleArticleDeleting = (article) => {
+    api.deleteArticle(article._id)
+        .then(() => {
+            const newArticles = this.state.savedArticles.filter((a) => a._id !== article._id);
+            this.setState({ savedArticles: newArticles });
+        }).catch(err => {
+            console.log(err);
+        });
+}
   
 
   handleTokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
         auth.checkToken(jwt).then((res) => {
-            console.log(res);
             if (res) {
                 this.setState({
                     loggedIn: true,
@@ -105,7 +145,7 @@ class App extends React.Component{
                         email: res.email
                     }
                 }, () => {
-                    history.push("/saved-news");
+                    history.push("/");
                 });
             }
         });
@@ -118,21 +158,34 @@ class App extends React.Component{
     }, () => { this.handleTokenCheck()});
   }
 
-  handleLogout = () => {
+  handleLogOut = () => {
       localStorage.removeItem('jwt');
+      localStorage.removeItem('currentUser');;
       this.setState({
           loggedIn: false,
       });
   }
 
+  createDefaultUser = () => {
+    return {
+        _id: -1,
+        name: 'No name',
+        about: 'No description',
+    };
+}
+
+
   render(){
     return(
       <Router history={history}>
-        <BrowserRouter>
+        
           <div className="page">
+          
             <Switch>
                 <Route path="/" exact>
-                    <Main articles={this.state.articles.slice(0, this.state.visibleCount)}
+                    <Main 
+                          currentUser={this.state.currentUser}
+                          articles={this.state.articles.slice(0, this.state.visibleCount)}
                           onArticleListClick = {this.onArticleListClick}
                           areThereMoreArticles = {this.state.articles.length > this.state.visibleCount}
                           preloaderSectionVisible={this.state.preloaderSectionVisible} 
@@ -144,18 +197,26 @@ class App extends React.Component{
                           handleLogOut={this.handleLogOut} 
                           authorize={this.authorize} 
                           register={this.register} 
-                          sendNewsRequest={this.sendNewsRequest}/>
+                          sendNewsRequest={this.sendNewsRequest}
+                          />
                 </Route>
-                <Route path="/saved-news" >
-                    < SavedNews />
-                </Route>
+                <ProtectedRoute path="/saved-news" loggedIn={this.state.loggedIn}
+                      currentUser={this.state.currentUser}
+                      getUserInfo = {this.getUserInfo}
+                      getInitialArticles = {this.getInitialArticles}
+                      articles={this.state.savedArticles}
+                      handleArticleDeleting={this.handleArticleDeleting}
+                      handleLogOut={this.handleLogOut} 
+                      component={SavedNews}
+                    />
+                
                 <Route path="*">
-                  { this.state.loggedIn ? <Redirect to="/saved-news" /> : <Redirect to="/" /> }
+                  { this.state.loggedIn ? <Redirect to="/myprofile" /> : <Redirect to="/signin" /> }
                 </Route>
             </Switch>
-            
+           
           </div>
-        </BrowserRouter>
+        
       </Router>
     )
   }

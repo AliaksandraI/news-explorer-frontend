@@ -24,6 +24,7 @@ function Header (props) {
         }
     }
 
+
     return (
         <header className={ mobileMenu ? "header header__mobile" : "header"}>
             <Link to="/" className={props.isHeaderForMain ? "header__name" : `${mobileMenu  ? 'header__name' : 'header__name_dark'}`}>
@@ -43,7 +44,7 @@ function Header (props) {
 
                 <button className={props.isHeaderForMain ? `${props.loggedIn  ? 'header__button' : 'header_hidden'}` : "header__button_dark"} onClick={props.handleLogOut}>
                     <Link to="/" className={props.isHeaderForMain ? `${props.loggedIn  ? 'header__text' : ''}` : "header__button-text header__button-text_dark"}>
-                        Грета 
+                    {props.loggedIn  ? props.currentUser.name : 'Greta'}
                      </Link>
                     <img src={ props.isHeaderForMain  ? logoutPathDark : logoutPathLight} className="header__logo" alt="кнопка вылогиниться"/>
                 </button>

@@ -16,9 +16,30 @@ class NewsCard extends Component {
         this.state = {
             notLogedMessageShown:false,
             articleIsSaved:false,
+            cardMessagePoppingUp: '',
         }
     };
 
+    handleButtonFocus =() => {
+        console.log(this.props.loggedIn);
+        if(this.props.loggedIn) {
+            this.setState({
+                cardMessagePoppingUp: 'Убрать из сохранённых',
+                notLogedMessageShown: true,
+            })
+        } else {
+            this.setState({
+                cardMessagePoppingUp: 'Войдите, чтобы сохранять статьи',
+                notLogedMessageShown: true,
+            })
+        }
+    }
+
+    handleButtonUnfocus = () =>{
+        this.setState({
+            notLogedMessageShown: false,
+        })
+    }
 
     handleSaveArticleClick = () => {
         if(this.props.loggedIn){
@@ -31,6 +52,10 @@ class NewsCard extends Component {
                 articleIsSaved: true,
             })
         }
+    }
+
+    handleArticleDeleting =() => {
+        this.props.handleArticleDeleting(this.props.article);
     }
 
     formatDate = (dateString) => {
@@ -49,16 +74,21 @@ class NewsCard extends Component {
             <div className="card" key={this.props.index}>
                 <img src={this.props.article.urlToImage ? this.props.article.urlToImage : notFoundImagePath} className="card__image" alt="картинка статьи"></img>
                 <div className="card__wrapper">
-                    <p className="card__date">{this.formatDate(this.props.article.publishedAt)}</p>
+                    <p className="card__date">{this.props.isSavedNews ? this.formatDate(this.props.article.date) : this.formatDate(this.props.article.publishedAt)}</p>
                     <p className="card__subtitle">{this.props.article.title}</p>
                     <p className="card__description">{this.props.article.description}</p>
                     <p className="card__source">{this.props.article.source.name}</p>
                 </div>
-                <p className={this.props.isSavedNews ? "card__keyword" : "card__keyword_hidden"}>Природа</p>
-                <p className={this.state.notLogedMessageShown ? "card__keyword-notlogedin" : "card__keyword_hidden"}>Войдите, чтобы сохранять статьи</p>
-                <button type="button" className="card__save-button" >
-                    <img src={this.props.isSavedNews ? deleteArticle : `${this.props.articleIsSaved  ? saveArticleMarked : saveArticle}`}  
-                    onClick={this.handleSaveArticleClick} alt="Знак сохранения статьи"></img>
+        <p className={this.props.isSavedNews ? "card__keyword" : "card__keyword_hidden"}>{this.props.article.keyword}</p>
+        <p  className={this.state.notLogedMessageShown ? "card__keyword-notlogedin" : "card__keyword_hidden"}>{this.state.cardMessagePoppingUp}</p>
+                <button 
+                onMouseOver={this.handleButtonFocus} 
+                onMouseLeave={this.handleButtonUnfocus}
+                type="button" className="card__save-button" >
+                    <img onMouseOver={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticleHover : saveArticleHover}`)} 
+                    onMouseLeave={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticle : saveArticle}`)}  
+                    src={this.props.isSavedNews ? deleteArticle : `${this.props.articleIsSaved  ? saveArticleMarked : saveArticle}`}  
+                    onClick={this.props.isSavedNews ? this.handleArticleDeleting : this.handleSaveArticleClick} alt="Знак сохранения статьи"></img>
                 </button>
             </div>
         );

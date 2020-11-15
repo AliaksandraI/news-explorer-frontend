@@ -1,9 +1,10 @@
 .card {
     max-width: 400px;
     border-radius: 10px 10px 10px 10px;
+    align-self: start;
     overflow: hidden;
     position: relative;
-    margin: auto;
+    margin: none;
 }
 
 .card__image {
