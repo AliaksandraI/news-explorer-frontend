@@ -44,7 +44,7 @@ function Header (props) {
 
                 <button className={props.isHeaderForMain ? `${props.loggedIn  ? 'header__button' : 'header_hidden'}` : "header__button_dark"} onClick={props.handleLogOut}>
                     <Link to="/" className={props.isHeaderForMain ? `${props.loggedIn  ? 'header__text' : ''}` : "header__button-text header__button-text_dark"}>
-                    {props.loggedIn  ? props.currentUser.name : 'Greta'}
+                    {props.currentUser.name}
                      </Link>
                     <img src={ props.isHeaderForMain  ? logoutPathDark : logoutPathLight} className="header__logo" alt="кнопка вылогиниться"/>
                 </button>

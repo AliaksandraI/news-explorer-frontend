@@ -57,13 +57,11 @@ class SearchForm extends Component {
   }
 
   handleSubmit = () => {
+    this.props.EnablePreloader();
     this.props.sendNewsRequest(this.state.searchRequest);
     this.onSendingRequest();
     
   }
-
-  
-
 
     render(){
         const {errors} = this.state;

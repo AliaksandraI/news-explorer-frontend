@@ -1,18 +1,16 @@
 import React from 'react';
-import { BrowserRouter, Route, Redirect, Switch, Router } from 'react-router-dom';
+import { Route, Redirect, Switch, Router } from 'react-router-dom';
 import Main from '../Main/Main.js';
 import SavedNews from '../SavedNews/SavedNews.js';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute.js';
 import history from '../../utils/History.js';
-import api from '../../utils/Api.js';
+import api from '../../utils/MainApi.js';
 import * as auth from '../../utils/Auth.js';
 import * as newsSearch from '../../utils/NewsApi.js';
 import './App.css';
 
 
 class App extends React.Component{
-
-  
 
   constructor(){
     super();
@@ -64,7 +62,6 @@ class App extends React.Component{
   getInitialArticles = () => {
     api.getInitialArticles()
     .then(articles => {
-
         let keywords = {};
         for (var i = 0; i < articles.length; i++) {
           if (!(articles[i].keyword in keywords)) {
@@ -82,7 +79,7 @@ class App extends React.Component{
             count1 = keywords[keyword];
             keyword1 = keyword;
           }
-          else if (keywords[keyword] > count2 && keywords[keyword] <= count1 && keyword != keyword1) {
+          else if (keywords[keyword] > count2 && keywords[keyword] <= count1 && keyword !== keyword1) {
             count2 = keywords[keyword];
             keyword2 = keyword;
           }
@@ -103,25 +100,29 @@ class App extends React.Component{
   getUserInfo = () => {
     api.getUserInfo()
     .then(user => {
-      console.log(user)
-      localStorage.setItem('currentUser', user)
-      this.setState({ currentUser: localStorage.getItem('currentUser') });
-    }).catch(err => {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.setState({ currentUser: JSON.parse(localStorage.getItem('currentUser')) });
+    })
+    .catch(err => {
         this.setState({ currentUser: this.createDefaultUser() });
         console.log(err);
     });
 }
 
+  EnablePreloader = () => {
+    this.setState({
+      preloaderSectionVisible: true,
+      isNothingFound: false,
+    });
+  }
 
+  
   sendNewsRequest = (request) => {
     this.setState({
-      preloaderSectionVisible:true,
-      isPreloading: true,
       keyword: request
     });
     return newsSearch.sendRequest(request)
       .then((res)=>{
-        console.log(res)
         if(res.totalResults > 0){
           this.setState({
               articles: res.articles,
@@ -185,6 +186,7 @@ class App extends React.Component{
   }
 
   handleLogin = () => {
+    this.getUserInfo();
     this.setState({
         loggedIn: true
     }, () => { this.handleTokenCheck()});
@@ -192,7 +194,7 @@ class App extends React.Component{
 
   handleLogOut = () => {
       localStorage.removeItem('jwt');
-      localStorage.removeItem('currentUser');;
+      localStorage.removeItem('currentUser');
       this.setState({
           loggedIn: false,
       });
@@ -223,6 +225,7 @@ class App extends React.Component{
                           preloaderSectionVisible={this.state.preloaderSectionVisible} 
                           loggedIn={this.state.loggedIn}
                           handleArticleSaving={this.handleArticleSaving} 
+                          EnablePreloader={this.EnablePreloader}
                           isPreloading={this.state.loggedIn}  
                           isNothingFound={this.state.isNothingFound} 
                           handleLogin={this.handleLogin} 

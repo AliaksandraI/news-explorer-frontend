@@ -15,13 +15,12 @@ class NewsCard extends Component {
         super(props);
         this.state = {
             notLogedMessageShown:false,
-            articleIsSaved:false,
+            articleIsSaved:'',
             cardMessagePoppingUp: '',
         }
     };
 
     handleButtonFocus =() => {
-        console.log(this.props.loggedIn);
         if(this.props.isSavedNews) {
             this.setState({
                 cardMessagePoppingUp: 'Убрать из сохранённых',
@@ -45,13 +44,9 @@ class NewsCard extends Component {
         if(this.props.loggedIn){
             this.props.handleArticleSaving(this.props.article);
             this.setState({
-                notLogedMessageShown: true,
-            })
-        } else {
-            this.setState({
                 articleIsSaved: true,
             })
-        }
+        } 
     }
 
     handleArticleDeleting =() => {
@@ -72,7 +67,7 @@ class NewsCard extends Component {
     render() {
         return (
             <div className="card" key={this.props.index}>
-                <img src={this.props.article.urlToImage ? this.props.article.urlToImage : notFoundImagePath} className="card__image" alt="картинка статьи"></img>
+                <img src={this.props.isSavedNews ? `${this.props.article.image ? this.props.article.image : notFoundImagePath}` : `${this.props.article.urlToImage ? this.props.article.urlToImage : notFoundImagePath}`} className="card__image" alt="картинка статьи"></img>
                 <div className="card__wrapper">
                     <p className="card__date">{this.props.isSavedNews ? this.formatDate(this.props.article.date) : this.formatDate(this.props.article.publishedAt)}</p>
                     <p className="card__subtitle">{this.props.article.title}</p>
@@ -87,8 +82,8 @@ class NewsCard extends Component {
                 type="button" className="card__save-button" >
                     <img onMouseOver={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticleHover : saveArticleHover}`)} 
                     onMouseLeave={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticle : saveArticle}`)}  
-                    src={this.props.isSavedNews ? deleteArticle : `${this.props.articleIsSaved  ? saveArticleMarked : saveArticle}`}  
-                    onClick={this.props.isSavedNews ? this.handleArticleDeleting : this.handleSaveArticleClick} alt="Знак сохранения статьи"></img>
+                    src={this.props.isSavedNews ? deleteArticle : `${this.state.articleIsSaved  ? saveArticleMarked : saveArticle}`}  
+                    onClick={this.props.isSavedNews ? this.handleArticleDeleting : this.handleSaveArticleClick} alt="Знак сохранения или удаления статьи"></img>
                 </button>
             </div>
         );

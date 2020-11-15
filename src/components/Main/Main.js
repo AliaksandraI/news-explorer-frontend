@@ -34,16 +34,16 @@ class Main extends React.Component{
             
                 <div className="main__header-image">
                     <Header currentUser={this.props.currentUser} loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
-                    <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest}/>
+                    <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest} EnablePreloader={this.props.EnablePreloader}/>
                 </div>
-                <section className={!this.props.isNothingFound ? "cards" : "cards main__section-hidden"} >
+                <section className={!this.props.isNothingFound&&!this.props.preloaderSectionVisible ? "cards" : "cards main__section-hidden"} >
                     <h2 className="cards__title">Результаты поиска</h2>
                     <NewsCardList articles={this.props.articles.slice(0, this.state.visibleCount)} loggedIn={this.props.loggedIn} handleArticleSaving={this.props.handleArticleSaving} isSavedNews={false}/>
                     <div className={ this.props.areThereMoreArticles ? "cards__button-wrapper" : "cards__button-wrapper main__section-hidden" }>
                         <button onClick={this.props.onArticleListClick} className="cards__button">Показать еще</button>
                     </div>
                 </section>
-                <Preloader visibility={this.props.preloaderSectionVisible  ? " " : "main__section-hidden"} isPreloading={this.props.isPreloading} isNothingFound={this.props.isNothingFound}/>
+                <Preloader visibility={this.props.preloaderSectionVisible  ? " " : "main__section-hidden"} isNothingFound={this.props.isNothingFound}/>
                 <About />
                 <LoginForm handleLogin={this.props.handleLogin} authorize={this.props.authorize} isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
                 </LoginForm >

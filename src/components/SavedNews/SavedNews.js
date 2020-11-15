@@ -19,6 +19,7 @@ class SavedNews extends React.Component {
                 
                 <Header isHeaderForMain={false} currentUser={this.props.currentUser} handleLogOut={this.props.handleLogOut}/>
                 <SavedNewsHeader 
+                currentUser={this.props.currentUser}
                 articles={this.props.articles} 
                 keyword1={this.props.keyword1}
                 keyword2={this.props.keyword2}
