@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://newsapi.org/v2/top-headlines?country=us'
+export const BASE_URL = 'https://nomoreparties.co/news/v2/top-headlines?country=us'
 const apiKey = 'd30275b0cb0140df880e73d671eefb5b';
 
 function getResponseData (res) {

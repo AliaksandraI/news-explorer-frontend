@@ -22,12 +22,12 @@ class NewsCard extends Component {
 
     handleButtonFocus =() => {
         console.log(this.props.loggedIn);
-        if(this.props.loggedIn) {
+        if(this.props.isSavedNews) {
             this.setState({
                 cardMessagePoppingUp: 'Убрать из сохранённых',
                 notLogedMessageShown: true,
             })
-        } else {
+        } else if (!this.props.loggedIn) {
             this.setState({
                 cardMessagePoppingUp: 'Войдите, чтобы сохранять статьи',
                 notLogedMessageShown: true,

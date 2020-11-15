@@ -25,7 +25,10 @@ class App extends React.Component{
       savedArticles: [],
       visibleCount: 3,
       currentUser: this.createDefaultUser(),
-      keyword:''
+      keyword:'',
+      keyword1:'',
+      keyword2:'',
+      keywordsCount:0,
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -61,12 +64,41 @@ class App extends React.Component{
   getInitialArticles = () => {
     api.getInitialArticles()
     .then(articles => {
-      console.log(articles);
-        this.setState({ savedArticles: articles });
+
+        let keywords = {};
+        for (var i = 0; i < articles.length; i++) {
+          if (!(articles[i].keyword in keywords)) {
+            keywords[articles[i].keyword] = 0;
+          }
+          keywords[articles[i].keyword]++;
+        }
+
+        let keyword1='', keyword2='';
+        let count1 = 0, count2 = 0;
+        let keywordCount = 0;
+        for(var keyword in keywords) {
+          keywordCount++;
+          if (keywords[keyword] > count1) {
+            count1 = keywords[keyword];
+            keyword1 = keyword;
+          }
+          else if (keywords[keyword] > count2 && keywords[keyword] <= count1 && keyword != keyword1) {
+            count2 = keywords[keyword];
+            keyword2 = keyword;
+          }
+        }
+        this.setState({ 
+          savedArticles: articles,
+          keyword1: keyword1,
+          keyword2: keyword2,
+          keywordsCount: keywordCount,
+        });
     }).catch(err => {
         console.log(err);
     });
   }
+
+
 
   getUserInfo = () => {
     api.getUserInfo()
@@ -200,7 +232,11 @@ class App extends React.Component{
                           sendNewsRequest={this.sendNewsRequest}
                           />
                 </Route>
-                <ProtectedRoute path="/saved-news" loggedIn={this.state.loggedIn}
+                <ProtectedRoute path="/saved-news" 
+                      keyword1={this.state.keyword1}
+                      keyword2={this.state.keyword2}
+                      keywordsCount={this.state.keywordsCount}
+                      loggedIn={this.state.loggedIn}
                       currentUser={this.state.currentUser}
                       getUserInfo = {this.getUserInfo}
                       getInitialArticles = {this.getInitialArticles}
