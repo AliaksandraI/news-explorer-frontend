@@ -12,6 +12,8 @@ import './App.css';
 
 class App extends React.Component{
 
+  
+
   constructor(){
     super();
     this.state = {
@@ -24,9 +26,7 @@ class App extends React.Component{
       visibleCount: 3,
       currentUser: this.createDefaultUser(),
       keyword:'',
-      keyword1:'',
-      keyword2:'',
-      keywordsCount:0,
+      keywordsDescription:''
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -41,8 +41,9 @@ class App extends React.Component{
 
   onArticleListClick = () => {
     if (this.state.articles.length > this.state.visibleCount) {
+        const maxArticlesAmount = 3;
         let increment = 3;
-        if(this.state.articles.length - this.state.visibleCount < 3) {
+        if(this.state.articles.length - this.state.visibleCount < maxArticlesAmount) {
             increment = this.state.articles.length - this.state.visibleCount;
         }
         this.setState({
@@ -62,39 +63,58 @@ class App extends React.Component{
   getInitialArticles = () => {
     api.getInitialArticles()
     .then(articles => {
-        let keywords = {};
-        for (var i = 0; i < articles.length; i++) {
-          if (!(articles[i].keyword in keywords)) {
-            keywords[articles[i].keyword] = 0;
-          }
-          keywords[articles[i].keyword]++;
-        }
-
-        let keyword1='', keyword2='';
-        let count1 = 0, count2 = 0;
-        let keywordCount = 0;
-        for(var keyword in keywords) {
-          keywordCount++;
-          if (keywords[keyword] > count1) {
-            count1 = keywords[keyword];
-            keyword1 = keyword;
-          }
-          else if (keywords[keyword] > count2 && keywords[keyword] <= count1 && keyword !== keyword1) {
-            count2 = keywords[keyword];
-            keyword2 = keyword;
-          }
-        }
+        localStorage.setItem('saved_articles', JSON.stringify(articles));
         this.setState({ 
           savedArticles: articles,
-          keyword1: keyword1,
-          keyword2: keyword2,
-          keywordsCount: keywordCount,
+          keywordsDescription: this.getKeywordDescription(articles)
         });
     }).catch(err => {
         console.log(err);
     });
   }
 
+
+  getKeywordDescription = (articles) => {
+    const keywords = {};
+    for (var i = 0; i < articles.length; i++) {
+      if (!(articles[i].keyword in keywords)) {
+        keywords[articles[i].keyword] = 0;
+      }
+      keywords[articles[i].keyword]++;
+    }
+
+    let keyword1='', keyword2='';
+    let count1 = 0, count2 = 0;
+    let keywordCount = 0;
+    for(var keyword in keywords) {
+      keywordCount++;
+      if (keywords[keyword] > count1) {
+        count1 = keywords[keyword];
+        keyword1 = keyword;
+      }
+      else if (keywords[keyword] > count2 && keywords[keyword] <= count1 && keyword !== keyword1) {
+        count2 = keywords[keyword];
+        keyword2 = keyword;
+      }
+    }
+
+    let keywordsDescription = 'ключевые слова отсутствуют';
+
+    if (articles.length !== 0) {
+        if(keywordCount === 1){
+          keywordsDescription = keyword1;
+        } else if(keywordCount === 2){
+          keywordsDescription = `${keyword1}, ${keyword2}`;
+        } else if(keywordCount === 3){
+          keywordsDescription = `${keyword1}, ${keyword2} и 1-м другим`;
+        } else {
+          keywordsDescription = `${keyword1}, ${keyword2} и ${keywordCount-2} другими`;
+        }
+    }
+
+    return keywordsDescription;
+
+  }
 
 
   getUserInfo = () => {
@@ -109,7 +129,7 @@ class App extends React.Component{
     });
 }
 
-  EnablePreloader = () => {
+  enablePreloader = () => {
     this.setState({
       preloaderSectionVisible: true,
       isNothingFound: false,
@@ -160,6 +180,7 @@ class App extends React.Component{
     api.deleteArticle(article._id)
         .then(() => {
             const newArticles = this.state.savedArticles.filter((a) => a._id !== article._id);
+            localStorage.setItem('saved_articles', JSON.stringify(newArticles));
             this.setState({ savedArticles: newArticles });
         }).catch(err => {
             console.log(err);
@@ -225,7 +246,8 @@ class App extends React.Component{
                           preloaderSectionVisible={this.state.preloaderSectionVisible} 
                           loggedIn={this.state.loggedIn}
                           handleArticleSaving={this.handleArticleSaving} 
-                          EnablePreloader={this.EnablePreloader}
+                          handleArticleDeleting={this.handleArticleDeleting}
+                          enablePreloader={this.enablePreloader}
                           isPreloading={this.state.loggedIn}  
                           isNothingFound={this.state.isNothingFound} 
                           handleLogin={this.handleLogin} 
@@ -236,9 +258,7 @@ class App extends React.Component{
                           />
                 </Route>
                 <ProtectedRoute path="/saved-news" 
-                      keyword1={this.state.keyword1}
-                      keyword2={this.state.keyword2}
-                      keywordsCount={this.state.keywordsCount}
+                      keywordsDescription={this.state.keywordsDescription}
                       loggedIn={this.state.loggedIn}
                       currentUser={this.state.currentUser}
                       getUserInfo = {this.getUserInfo}
@@ -250,7 +270,7 @@ class App extends React.Component{
                     />
                 
                 <Route path="*">
-                  { this.state.loggedIn ? <Redirect to="/myprofile" /> : <Redirect to="/signin" /> }
+                  { this.state.loggedIn ? <Redirect to="/" /> : <Redirect to="/" /> }
                 </Route>
             </Switch>
            

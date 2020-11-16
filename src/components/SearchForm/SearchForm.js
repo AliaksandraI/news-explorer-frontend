@@ -42,11 +42,11 @@ class SearchForm extends Component {
 
     this.setState({errors, [name]: value});
 
-    this.EnableCheck();
+    this.enableCheck();
   }
 
 
-  EnableCheck = () =>{
+  enableCheck = () =>{
     if(validateForm(this.state.errors)) {
         this.setState({
             isEnabled: true,})
@@ -57,10 +57,11 @@ class SearchForm extends Component {
   }
 
   handleSubmit = () => {
-    this.props.EnablePreloader();
-    this.props.sendNewsRequest(this.state.searchRequest);
-    this.onSendingRequest();
-    
+    if(this.state.isEnabled){
+      this.props.enablePreloader();
+      this.props.sendNewsRequest(this.state.searchRequest);
+      this.onSendingRequest();
+    }
   }
 
     render(){
@@ -69,7 +70,7 @@ class SearchForm extends Component {
         return ( 
             <div className="search__wrapper">
                 
-                <input type="search" className="search__input" placeholder="Введите тему новости" name="searchRequest" onChange={this.handleChange} noValidate value={this.state.searchRequest}>
+                <input type="search" required minLength="2" maxLength="40" className="search__input" placeholder="Введите тему новости" name="searchRequest" onChange={this.handleChange} noValidate value={this.state.searchRequest}>
                 </input>
                 {errors.searchRequest.length > 0 &&<span id="search-input-error" className="search__error">{errors.searchRequest}</span>}
                 <button type="submit" className={this.state.isEnabled ? "search__button" : "search__button"} onClick={this.handleSubmit}>Искать</button>

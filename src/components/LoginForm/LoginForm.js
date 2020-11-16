@@ -53,11 +53,11 @@ class LoginForm extends Component  {
 
     this.setState({errors, [name]: value});
 
-    this.EnableCheck();
+    this.enableCheck();
     
   }
 
-  EnableCheck = () =>{
+  enableCheck = () =>{
     if(validateForm(this.state.errors)) {
         this.setState({
             isEnabled: true,})

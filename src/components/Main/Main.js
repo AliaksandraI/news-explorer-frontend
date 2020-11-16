@@ -34,11 +34,11 @@ class Main extends React.Component{
             
                 <div className="main__header-image">
                     <Header currentUser={this.props.currentUser} loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
-                    <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest} EnablePreloader={this.props.EnablePreloader}/>
+                    <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest} enablePreloader={this.props.enablePreloader}/>
                 </div>
                 <section className={!this.props.isNothingFound&&!this.props.preloaderSectionVisible ? "cards" : "cards main__section-hidden"} >
                     <h2 className="cards__title">Результаты поиска</h2>
-                    <NewsCardList articles={this.props.articles.slice(0, this.state.visibleCount)} loggedIn={this.props.loggedIn} handleArticleSaving={this.props.handleArticleSaving} isSavedNews={false}/>
+                    <NewsCardList articles={this.props.articles.slice(0, this.state.visibleCount)} loggedIn={this.props.loggedIn} handleArticleSaving={this.props.handleArticleSaving} handleArticleDeleting={this.props.handleArticleDeleting} handleRegistrationClick={this.handleRegistrationClick} isSavedNews={false}/>
                     <div className={ this.props.areThereMoreArticles ? "cards__button-wrapper" : "cards__button-wrapper main__section-hidden" }>
                         <button onClick={this.props.onArticleListClick} className="cards__button">Показать еще</button>
                     </div>

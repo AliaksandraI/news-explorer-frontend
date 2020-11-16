@@ -14,11 +14,40 @@ class NewsCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            notLogedMessageShown:false,
-            articleIsSaved:'',
+            notLogedMessageShown: false,
+            articleIsSaved: false,
             cardMessagePoppingUp: '',
+            savedArticle: null
         }
     };
+
+    componentDidMount() {
+        if (!this.props.isSavedNews) {
+            let articles = localStorage.getItem('saved_articles');
+
+            if(articles){
+                articles = JSON.parse(articles);
+            }
+
+            let isSaved = false;
+            let savedArticle = null;
+            if (articles && articles.length > 0) {
+                for(let i = 0; i < articles.length; i++) {
+                    if (articles[i].link === this.props.article.url &&
+                        articles[i].image === this.props.article.urlToImage) {
+                            isSaved = true;  
+                            savedArticle = articles[i];           
+                            break;
+                        }
+                }
+            }
+
+            this.setState({
+                articleIsSaved: isSaved,
+                savedArticle: savedArticle
+            });
+        }
+    }
 
     handleButtonFocus =() => {
         if(this.props.isSavedNews) {
@@ -46,20 +75,31 @@ class NewsCard extends Component {
             this.setState({
                 articleIsSaved: true,
             })
-        } 
+        } else {
+            this.props.handleRegistrationClick();
+        }
     }
 
     handleArticleDeleting =() => {
-        this.props.handleArticleDeleting(this.props.article);
+        if (this.props.isSavedNews) {
+            this.props.handleArticleDeleting(this.props.article);
+        } else {
+            this.props.handleArticleDeleting(this.state.savedArticle);
+            this.setState({
+                articleIsSaved: false,
+                savedArticle: null
+            });
+
+        }
     }
 
     formatDate = (dateString) => {
-        let months = ["January","February","March","April","May","June","July",
+        const months = ["January","February","March","April","May","June","July",
                       "August","September","October","November","December"]
-        let date = new Date(dateString);
-        let year = date.getFullYear();
-        let month = months[date.getMonth()];
-        let day = date.getDate();
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = months[date.getMonth()];
+        const day = date.getDate();
 
         return `${day} ${month}, ${year}`;
     }
@@ -83,7 +123,7 @@ class NewsCard extends Component {
                     <img onMouseOver={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticleHover : saveArticleHover}`)} 
                     onMouseLeave={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticle : saveArticle}`)}  
                     src={this.props.isSavedNews ? deleteArticle : `${this.state.articleIsSaved  ? saveArticleMarked : saveArticle}`}  
-                    onClick={this.props.isSavedNews ? this.handleArticleDeleting : this.handleSaveArticleClick} alt="Знак сохранения или удаления статьи"></img>
+                    onClick={this.props.isSavedNews ? this.handleArticleDeleting : (this.state.articleIsSaved? this.handleArticleDeleting : this.handleSaveArticleClick)} alt="Знак сохранения или удаления статьи"></img>
                 </button>
             </div>
         );
