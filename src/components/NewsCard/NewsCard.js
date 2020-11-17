@@ -22,6 +22,11 @@ class NewsCard extends Component {
     };
 
     componentDidMount() {
+        this.updateArticleInformation();
+    }
+
+    updateArticleInformation = () => {
+
         if (!this.props.isSavedNews) {
             let articles = localStorage.getItem('saved_articles');
 
@@ -47,7 +52,9 @@ class NewsCard extends Component {
                 savedArticle: savedArticle
             });
         }
+
     }
+
 
     handleButtonFocus =() => {
         if(this.props.isSavedNews) {
@@ -71,10 +78,8 @@ class NewsCard extends Component {
 
     handleSaveArticleClick = () => {
         if(this.props.loggedIn){
-            this.props.handleArticleSaving(this.props.article);
-            this.setState({
-                articleIsSaved: true,
-            })
+            this.props.handleArticleSaving(this.props.article)
+            .then (() => this.updateArticleInformation() );
         } else {
             this.props.handleRegistrationClick();
         }
@@ -120,9 +125,9 @@ class NewsCard extends Component {
                 onMouseOver={this.handleButtonFocus} 
                 onMouseLeave={this.handleButtonUnfocus}
                 type="button" className="card__save-button" >
-                    <img onMouseOver={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticleHover : saveArticleHover}`)} 
-                    onMouseLeave={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticle : saveArticle}`)}  
-                    src={this.props.isSavedNews ? deleteArticle : `${this.state.articleIsSaved  ? saveArticleMarked : saveArticle}`}  
+                    <img onMouseOver={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticleHover : this.state.articleIsSaved ? saveArticleMarked : saveArticleHover}`)} 
+                    onMouseLeave={e => (e.currentTarget.src = `${this.props.isSavedNews ? deleteArticle : this.state.articleIsSaved ? saveArticleMarked : saveArticle}`)}  
+                    src={this.props.isSavedNews ? deleteArticle : `${this.state.articleIsSaved  ? saveArticleMarked :  saveArticle}`}  
                     onClick={this.props.isSavedNews ? this.handleArticleDeleting : (this.state.articleIsSaved? this.handleArticleDeleting : this.handleSaveArticleClick)} alt="Знак сохранения или удаления статьи"></img>
                 </button>
             </div>

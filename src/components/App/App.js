@@ -36,7 +36,6 @@ class App extends React.Component{
 
   componentDidMount() {
     this.handleTokenCheck();
-    this.getUserInfo();
   }
 
   onArticleListClick = () => {
@@ -61,16 +60,25 @@ class App extends React.Component{
   }
 
   getInitialArticles = () => {
-    api.getInitialArticles()
-    .then(articles => {
-        localStorage.setItem('saved_articles', JSON.stringify(articles));
-        this.setState({ 
-          savedArticles: articles,
-          keywordsDescription: this.getKeywordDescription(articles)
-        });
-    }).catch(err => {
-        console.log(err);
-    });
+    let savedArticles = JSON.parse(localStorage.getItem('saved_articles'));
+
+    if (savedArticles) {
+      this.setState({ 
+        savedArticles: savedArticles,
+        keywordsDescription: this.getKeywordDescription(savedArticles)
+      });
+    } else {
+      api.getInitialArticles()
+      .then(articles => {
+          localStorage.setItem('saved_articles', JSON.stringify(articles));
+          this.setState({ 
+            savedArticles: articles,
+            keywordsDescription: this.getKeywordDescription(articles)
+          });
+      }).catch(err => {
+          console.log(err);
+      });
+    }
   }
 
 
@@ -156,7 +164,7 @@ class App extends React.Component{
             preloaderSectionVisible:true,
             isPreloading: false,
             isNothingFound: true,
-            visibleCount: 0
+            visibleCount: 0,
         });
         }
       })
@@ -164,15 +172,17 @@ class App extends React.Component{
         console.log(err);
     });
   }
-
+ 
   handleArticleSaving = (article)  => {
-    api.addNewArticle(article, this.state.keyword)
-        .then((article) => {
-            this.setState({ savedArticles: [...this.state.savedArticles, article] });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+    return api.addNewArticle(article, this.state.keyword)
+          .then((article) => {
+              let savedArticles = [...this.state.savedArticles, article];
+              localStorage.setItem('saved_articles', JSON.stringify(savedArticles));
+              this.setState({ savedArticles:  savedArticles});
+          })
+          .catch(err => {
+              console.log(err);
+          });
   }
 
 
@@ -199,6 +209,8 @@ class App extends React.Component{
                         email: res.email
                     }
                 }, () => {
+                    this.getUserInfo();
+                    this.getInitialArticles();
                     history.push("/");
                 });
             }
@@ -216,8 +228,18 @@ class App extends React.Component{
   handleLogOut = () => {
       localStorage.removeItem('jwt');
       localStorage.removeItem('currentUser');
+      localStorage.removeItem('saved_articles');
       this.setState({
-          loggedIn: false,
+        loggedIn: false,
+        preloaderSectionVisible:false,
+        isPreloading: false,
+        isNothingFound: true,
+        articles: [],
+        savedArticles: [],
+        visibleCount: 3,
+        currentUser: this.createDefaultUser(),
+        keyword:'',
+        keywordsDescription:''
       });
   }
 
@@ -262,7 +284,6 @@ class App extends React.Component{
                       loggedIn={this.state.loggedIn}
                       currentUser={this.state.currentUser}
                       getUserInfo = {this.getUserInfo}
-                      getInitialArticles = {this.getInitialArticles}
                       articles={this.state.savedArticles}
                       handleArticleDeleting={this.handleArticleDeleting}
                       handleLogOut={this.handleLogOut} 

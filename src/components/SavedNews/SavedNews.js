@@ -7,10 +7,6 @@ import Footer from '../Footer/Footer.js';
 class SavedNews extends React.Component {
 
 
-    componentDidMount() {
-        this.props.getInitialArticles();
-    }
-
     render(){
 
         return (
