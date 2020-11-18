@@ -53,11 +53,11 @@ class LoginForm extends Component  {
 
     this.setState({errors, [name]: value});
 
-    this.EnableCheck();
+    this.enableCheck();
     
   }
 
-  EnableCheck = () =>{
+  enableCheck = () =>{
     if(validateForm(this.state.errors)) {
         this.setState({
             isEnabled: true,})
@@ -65,22 +65,32 @@ class LoginForm extends Component  {
         this.setState({
             isEnabled: false,})
     }
-    }
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
     if(validateForm(this.state.errors)) {
-      console.info('Valid Form')
+      this.props.authorize(this.state.email, this.state.password)
+      .then((data) => {
+        if (data.token) {
+          this.setState({ email: '', password: '' },
+            () => {
+              this.props.handleLogin()
+            })
+        }
+      })
+      .catch(err => console.log(err))
     }else{
       console.error('Invalid Form')
     }
+    this.onClose();
   }
 
 
     render(){
         const {errors} = this.state;
         return (
-            <PopupWithForm name="login_form" title="Вход" isOpen={this.props.isOpen} onClose={this.onClose} >
+            <PopupWithForm name="login_form" title="Вход" isOpen={this.props.isOpen} onClose={this.onClose} onSubmit={this.handleSubmit} >
                         <span className="form__input-name">Email</span>
                         <input id="email-input-login" type="email" autoComplete="useremail" required placeholder="Введите почту"
                                 className="popup__text form__input" 
@@ -92,7 +102,7 @@ class LoginForm extends Component  {
                                 className="popup__text form__input" name='password' onChange={this.handleChange} noValidate value={this.state.password}></input>
                         {errors.password.length > 0 &&<span id="url-input-error" className="form__error">{errors.password}</span>}
 
-                        <button type="submit" className={this.state.isEnabled ? "popup__button_active" : "popup__button"}>Войти</button>
+                        <button type="submit" className={this.state.isEnabled ? "popup__button_active" : "popup__button" }>Войти</button>
                         <p className="form__link-wrapper">или<span className="form__link-text" onClick={this.onRegistrationButtonClick}> Зарегистрироваться</span></p>                   
             </PopupWithForm>
         )}

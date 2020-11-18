@@ -4,18 +4,27 @@ import NewsCardList from '../NewsCardList/NewsCardList.js';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader.js'; 
 import Footer from '../Footer/Footer.js';
 
-function SavedNews () {
-    return (
-        <div >
-            <Header isHeaderForMain={false}/>
+class SavedNews extends React.Component {
 
-            <SavedNewsHeader />
 
-            <NewsCardList isSavedNews={true} />
+    render(){
 
-            <Footer />
-      </div>
-    );
+        return (
+            <div >
+                
+                <Header isHeaderForMain={false} currentUser={this.props.currentUser} handleLogOut={this.props.handleLogOut}/>
+                <SavedNewsHeader 
+                currentUser={this.props.currentUser}
+                articles={this.props.articles} 
+                keywordsDescription={this.props.keywordsDescription}
+                />
+                <NewsCardList articles={this.props.articles} handleArticleDeleting={this.props.handleArticleDeleting} isSavedNews={true} />
+                <Footer />
+
+          </div>
+        );
+    }
+    
 }
 
 

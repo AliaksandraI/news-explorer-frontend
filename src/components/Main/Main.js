@@ -9,47 +9,54 @@ import LoginForm from '../LoginForm/LoginForm.js';
 import SuccesfulRegistrationForm from '../SuccesfulRegistrationForm/SuccesfulRegistrationForm.js';
 import Footer from '../Footer/Footer.js';
 
+
+
 import './Main.css';
 import '../NewsCardList/NewsCardList.css';
 
 
 class Main extends React.Component{
+   
 
-    constructor(){
+    constructor(props){
         super();
         this.state = {
             isLoginFormOpen: false,
             isRegistrationFormOpen: false,
-            isSuccesfulRegistrationFormOpen: false,
+            isSuccesfulRegistrationFormOpen: false
         }
     }
+
 
     render () {
         return (
             <div >
+            
                 <div className="main__header-image">
-                    <Header isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick}/>
-                    <Search />
+                    <Header currentUser={this.props.currentUser} loggedIn={this.props.loggedIn} isHeaderForMain={true} onAuthButtonClick={this.handleLoginClick} handleLogOut={this.props.handleLogOut}/>
+                    <Search sucessfulSearchRequest={this.props.sucessfulSearchRequest} sendNewsRequest={this.props.sendNewsRequest} enablePreloader={this.props.enablePreloader}/>
                 </div>
-                <section className="cards">
+                <section className={!this.props.isNothingFound&&!this.props.preloaderSectionVisible ? "cards" : "cards main__section-hidden"} >
                     <h2 className="cards__title">Результаты поиска</h2>
-                    <NewsCardList  isSavedNews={false}/>
-                    <div className="cards__button-wrapper">
-                        <button className="cards__button">Показать еще</button>
+                    <NewsCardList articles={this.props.articles.slice(0, this.state.visibleCount)} loggedIn={this.props.loggedIn} handleArticleSaving={this.props.handleArticleSaving} handleArticleDeleting={this.props.handleArticleDeleting} handleRegistrationClick={this.handleRegistrationClick} isSavedNews={false}/>
+                    <div className={ this.props.areThereMoreArticles ? "cards__button-wrapper" : "cards__button-wrapper main__section-hidden" }>
+                        <button onClick={this.props.onArticleListClick} className="cards__button">Показать еще</button>
                     </div>
                 </section>
-                <Preloader />
+                <Preloader visibility={this.props.preloaderSectionVisible  ? " " : "main__section-hidden"} isNothingFound={this.props.isNothingFound}/>
                 <About />
-                <LoginForm isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
+                <LoginForm handleLogin={this.props.handleLogin} authorize={this.props.authorize} isOpen={this.state.isLoginFormOpen} onClose={this.closeAllPopups} onRegistrationButtonClick={this.handleRegistrationClick}>
                 </LoginForm >
-                <RegistrationForm isOpen={this.state.isRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick} onSuccesfulRegistration={this.handleSuccesfulRegistration}>
+                <RegistrationForm register={this.props.register} isOpen={this.state.isRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick} onSuccesfulRegistration={this.handleSuccesfulRegistration} >
                 </RegistrationForm>
-                <SuccesfulRegistrationForm isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick}>
+                <SuccesfulRegistrationForm  isOpen={this.state.isSuccesfulRegistrationFormOpen} onClose={this.closeAllPopups} onLoginButtonClick={this.handleLoginClick}>
                 </SuccesfulRegistrationForm>
                 <Footer />
+            
         </div>
         );
     }
+
 
     handleLoginClick = () => {
         this.setState({ isLoginFormOpen: true });
