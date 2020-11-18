@@ -82,6 +82,23 @@ class App extends React.Component{
   }
 
 
+  getLatestSearchResults = () => {
+    let latestSearchResults = JSON.parse(localStorage.getItem('latest_search_result'));
+    let latestSearchKeyword = localStorage.getItem('latest_search_keyword');
+
+    if(latestSearchResults && latestSearchResults.length>0) {
+      this.setState({
+        articles: latestSearchResults,
+        preloaderSectionVisible:false,
+        isPreloading: false,
+        isNothingFound: false,
+        visibleCount: 3,
+        keyword: latestSearchKeyword
+      });
+    }
+
+  }
+
   getKeywordDescription = (articles) => {
     const keywords = {};
     for (var i = 0; i < articles.length; i++) {
@@ -135,7 +152,7 @@ class App extends React.Component{
         this.setState({ currentUser: this.createDefaultUser() });
         console.log(err);
     });
-}
+  }
 
   enablePreloader = () => {
     this.setState({
@@ -152,6 +169,8 @@ class App extends React.Component{
     return newsSearch.sendRequest(request)
       .then((res)=>{
         if(res.totalResults > 0){
+          localStorage.setItem('latest_search_result', JSON.stringify(res.articles));
+          localStorage.setItem('latest_search_keyword', request);
           this.setState({
               articles: res.articles,
               preloaderSectionVisible:false,
@@ -159,7 +178,7 @@ class App extends React.Component{
               isNothingFound: false,
               visibleCount: 3
           });
-        } else {
+        } else {          
           this.setState({
             preloaderSectionVisible:true,
             isPreloading: false,
@@ -211,6 +230,7 @@ class App extends React.Component{
                 }, () => {
                     this.getUserInfo();
                     this.getInitialArticles();
+                    this.getLatestSearchResults();
                     history.push("/");
                 });
             }
@@ -229,6 +249,8 @@ class App extends React.Component{
       localStorage.removeItem('jwt');
       localStorage.removeItem('currentUser');
       localStorage.removeItem('saved_articles');
+      localStorage.removeItem('latest_search_result');
+      localStorage.removeItem('latest_search_keyword');
       this.setState({
         loggedIn: false,
         preloaderSectionVisible:false,
